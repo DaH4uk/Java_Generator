@@ -38,47 +38,75 @@
                                           </RadioButton>
                                           <RadioButton layoutX="211.0" layoutY="23.0" text="Удаленный компьютер не отвечает" toggleGroup="$txtErr" />
                                           <Label layoutX="14.0" layoutY="40.0" text="Oper status:" textAlignment="CENTER" underline="true" />
-                                          <RadioButton layoutX="14.0" layoutY="57.0" selected="true" text="Down" textFill="#900000">
+                                          <RadioButton fx:id="radioOperStatDown" layoutX="14.0" layoutY="57.0"
+                                                       onAction="#operStatClicled" selected="true" text="Down"
+                                                       textFill="#900000">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="operStatus" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton layoutX="78.0" layoutY="57.0" text="UP" textFill="#006813" toggleGroup="$operStatus" />
-                                          <Label layoutX="137.0" layoutY="40.0" text="Mac-адрес виден?" underline="true" />
-                                          <RadioButton layoutX="137.0" layoutY="57.0" selected="true" text="Нет" textFill="#900000">
+                                          <RadioButton fx:id="radioOperStatUp" layoutX="78.0" layoutY="57.0"
+                                                       onAction="#operStatClicled" text="UP" textFill="#006813"
+                                                       toggleGroup="$operStatus"/>
+                                          <Label fx:id="txtMacVisiable" disable="true" layoutX="137.0" layoutY="40.0"
+                                                 text="Mac-адрес виден?" underline="true"/>
+                                          <RadioButton fx:id="radioMacVisiableNo" disable="true" layoutX="137.0"
+                                                       layoutY="57.0" onAction="#macAddrVisibleClicked" selected="true"
+                                                       text="Нет" textFill="#900000">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="macAddr" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton layoutX="188.0" layoutY="57.0" text="Да" textFill="#006813" toggleGroup="$macAddr" />
+                                          <RadioButton fx:id="radioMacVisiableYes" disable="true" layoutX="188.0"
+                                                       layoutY="57.0" onAction="#macAddrVisibleClicked" text="Да"
+                                                       textFill="#006813" toggleGroup="$macAddr"/>
                                           <Label layoutX="250.0" layoutY="40.0" text="Коммутатор управляемый?" underline="true" />
-                                          <RadioButton layoutX="250.0" layoutY="57.0" selected="true" text="Да">
+                                          <RadioButton fx:id="radioCommutIsControlledYes" layoutX="250.0" layoutY="57.0"
+                                                       onAction="#CommutIsControlledClicked" selected="true" text="Да">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="commut" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton layoutX="299.0" layoutY="57.0" text="Нет" toggleGroup="$commut" />
+                                          <RadioButton fx:id="radioCommutIsControlledNo" layoutX="299.0" layoutY="57.0"
+                                                       onAction="#CommutIsControlledClicked" text="Нет"
+                                                       toggleGroup="$commut"/>
                                           <Label layoutX="14.0" layoutY="74.0" text="Обрыв:" underline="true" />
-                                          <CheckBox layoutX="13.0" layoutY="91.0" text="Есть" textFill="#900000" />
-                                          <CheckBox disable="true" layoutX="78.0" layoutY="91.0" text="Пара 1 на " />
-                                          <CheckBox disable="true" layoutX="78.0" layoutY="117.0" text="Пара 2 на " />
-                                          <TextField disable="true" layoutX="160.0" layoutY="87.0" prefHeight="25.0" prefWidth="36.0" />
-                                          <TextField disable="true" layoutX="160.0" layoutY="113.0" prefHeight="25.0" prefWidth="36.0" />
-                                          <Label disable="true" layoutX="210.0" layoutY="91.0" text="метре" />
-                                          <Label disable="true" layoutX="210.0" layoutY="117.0" text="метре" />
-                                          <Label disable="true" layoutX="250.0" layoutY="74.0" text="Маки соседей видны?" underline="true" />
-                                          <RadioButton disable="true" layoutX="250.0" layoutY="91.0" selected="true" text="Нет" textFill="#900000">
+                                          <CheckBox fx:id="chkBreaks" layoutX="13.0" layoutY="91.0"
+                                                    onAction="#breaksClicked" text="Есть" textFill="#900000"/>
+                                          <CheckBox fx:id="chkBreaks1Pair" disable="true" layoutX="78.0" layoutY="91.0"
+                                                    text="Пара 1 на "/>
+                                          <CheckBox fx:id="chkBreaks2Pair" disable="true" layoutX="78.0" layoutY="117.0"
+                                                    text="Пара 2 на "/>
+                                          <TextField fx:id="txtfieldBreaks1Pair" disable="true" layoutX="160.0"
+                                                     layoutY="87.0" prefHeight="25.0" prefWidth="36.0"/>
+                                          <TextField fx:id="txtfieldBreaks2Pair" disable="true" layoutX="160.0"
+                                                     layoutY="113.0" prefHeight="25.0" prefWidth="36.0"/>
+                                          <Label fx:id="txtBreaks1Pair" disable="true" layoutX="210.0" layoutY="91.0"
+                                                 text="метре"/>
+                                          <Label fx:id="txtBreaks2Pair" disable="true" layoutX="210.0" layoutY="117.0"
+                                                 text="метре"/>
+                                          <Label fx:id="txtMacOfNeighbors" disable="true" layoutX="250.0" layoutY="74.0"
+                                                 text="Маки соседей видны?" underline="true"/>
+                                          <RadioButton fx:id="radioMacOfNeighborsNo" disable="true" layoutX="250.0"
+                                                       layoutY="91.0" selected="true" text="Нет" textFill="#900000">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="macSosed" />
                                              </toggleGroup></RadioButton>
-                                          <RadioButton disable="true" layoutX="299.0" layoutY="91.0" text="Да" textFill="#006813" toggleGroup="$macSosed" />
-                                          <Label disable="true" layoutX="250.0" layoutY="109.0" text="Mac принадлежит клиенту?" underline="true" />
-                                          <RadioButton disable="true" layoutX="250.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="Нет">
+                                          <RadioButton fx:id="radioMacOfNeighborsYes" disable="true" layoutX="299.0"
+                                                       layoutY="91.0" text="Да" textFill="#006813"
+                                                       toggleGroup="$macSosed"/>
+                                          <Label fx:id="txtMacBelongs" disable="true" layoutX="250.0" layoutY="109.0"
+                                                 text="Mac принадлежит клиенту?" underline="true"/>
+                                          <RadioButton fx:id="radioMacBelongsNo" disable="true" layoutX="250.0"
+                                                       layoutY="130.0" mnemonicParsing="false" selected="true"
+                                                       text="Нет">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="macKli" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton disable="true" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" text="Да" toggleGroup="$macKli" />
+                                          <RadioButton fx:id="radioMacBelongsYes" disable="true" layoutX="299.0"
+                                                       layoutY="130.0" mnemonicParsing="false" text="Да"
+                                                       toggleGroup="$macKli"/>
                                           <VBox layoutX="16.0" layoutY="161.0" prefHeight="90.0" prefWidth="468.0">
                                              <children>
                                                 <HBox prefHeight="20.0" prefWidth="468.0">
@@ -97,7 +125,8 @@
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Порт перезапускали" />
+                                                <CheckBox fx:id="chkPortRestarted" mnemonicParsing="false"
+                                                          text="Порт перезапускали"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
@@ -211,19 +240,25 @@
                                              <children>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" text="До внешки:         " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <CheckBox fx:id="chkExternalPing" mnemonicParsing="false"
+                                                                onAction="#ExternalPingClicked"
+                                                                text="До внешки:         "/>
+                                                      <TextField fx:id="txtfieldExternalPingSize" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="     " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldExternalPingSend" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="      " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldExternalPingReceived" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
                                                       <Label text="Адрес:" />
                                                       <Label text="     " />
-                                                      <TextField disable="true" prefHeight="14.0" prefWidth="87.0" text="ya.ru">
+                                                      <TextField fx:id="txtfieldExternalPingAddr" disable="true"
+                                                                 prefHeight="14.0" prefWidth="87.0" text="ya.ru">
                                                          <font>
                                                             <Font size="10.0" />
                                                          </font>
@@ -232,30 +267,41 @@
                                                 </HBox>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" text="До DNS:               " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <CheckBox fx:id="chkDNSPing" mnemonicParsing="false"
+                                                                onAction="#DNSPingClicked"
+                                                                text="До DNS:               "/>
+                                                      <TextField fx:id="txtfieldDNSSize" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="     " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldDNSSend" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="      " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldDNSRecived" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
-                                                      <CheckBox mnemonicParsing="false" text="До коммутатора:" />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <CheckBox fx:id="chkSwitchPing" mnemonicParsing="false"
+                                                                onAction="#SwitchPingClicked" text="До коммутатора:"/>
+                                                      <TextField fx:id="txtfieldSwitchSize" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="     " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldSwitchSend" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                       <Label text="      " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldSwitchRecived" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
                                                       <Label text="IP:   " />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="105.0" text="0.0.0.0" />
+                                                      <TextField fx:id="txtfieldSwitchIP" disable="true"
+                                                                 prefHeight="25.0" prefWidth="105.0" text="0.0.0.0"/>
                                                       <Label text="     Порт:" />
-                                                      <TextField disable="true" prefHeight="25.0" prefWidth="44.0" />
+                                                      <TextField fx:id="txtfieldSwitchPort" disable="true"
+                                                                 prefHeight="25.0" prefWidth="44.0"/>
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -290,7 +336,9 @@
                                                   <String fx:value="Низкий уровень сигнала " />
                                               </value>
                                           </ComboBox>
-                                          <CheckBox layoutX="329.0" layoutY="6.0" mnemonicParsing="false" text="Скорость (Speedtest):" underline="true" />
+                                          <CheckBox fx:id="chkSpeedST" layoutX="329.0" layoutY="6.0"
+                                                    mnemonicParsing="false" onAction="#SpeedSTClicked"
+                                                    text="Скорость (Speedtest):" underline="true"/>
                                           <Label layoutX="329.0" layoutY="23.0" text="Download:">
                                              <font>
                                                 <Font size="10.0" />
@@ -301,23 +349,30 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <TextField disable="true" layoutX="329.0" layoutY="39.0" prefHeight="25.0" prefWidth="50.0" />
-                                          <TextField disable="true" layoutX="398.0" layoutY="39.0" prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="txtfieldSpeedSTDownload" disable="true" layoutX="329.0"
+                                                     layoutY="39.0" prefHeight="25.0" prefWidth="50.0"/>
+                                          <TextField fx:id="txtfieldSpeedSTUpload" disable="true" layoutX="398.0"
+                                                     layoutY="39.0" prefHeight="25.0" prefWidth="50.0"/>
                                           <Label layoutX="332.0" layoutY="69.0" text="Д/быть:" />
-                                          <TextField disable="true" layoutX="398.0" layoutY="69.0" prefHeight="25.0" prefWidth="50.0" />
-                                          <CheckBox layoutX="329.0" layoutY="98.0" mnemonicParsing="false" text="Скорость (Iperf):" underline="true" />
+                                          <TextField fx:id="txtfieldSpeedSTMustBe" disable="true" layoutX="398.0"
+                                                     layoutY="69.0" prefHeight="25.0" prefWidth="50.0"/>
+                                          <CheckBox fx:id="chkSpeedIperf" layoutX="329.0" layoutY="98.0"
+                                                    mnemonicParsing="false" onAction="#SpeedIperfClicked"
+                                                    text="Скорость (Iperf):" underline="true"/>
                                           <Label layoutX="329.0" layoutY="118.0" text="Speed:">
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <TextField disable="true" layoutX="328.0" layoutY="133.0" prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="txtfieldSpeedIperfSpeed" disable="true" layoutX="328.0"
+                                                     layoutY="133.0" prefHeight="25.0" prefWidth="50.0"/>
                                           <Label layoutX="383.0" layoutY="118.0" text="Город:">
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <TextField disable="true" layoutX="383.0" layoutY="133.0" prefHeight="25.0" prefWidth="89.0" />
+                                          <TextField fx:id="txtfieldSpeedIperfCity" disable="true" layoutX="383.0"
+                                                     layoutY="133.0" prefHeight="25.0" prefWidth="89.0"/>
                                           <CheckBox layoutX="339.0" layoutY="220.0" mnemonicParsing="false" text="Замена роутера" />
                                           <CheckBox layoutX="250.0" layoutY="192.0" mnemonicParsing="false" text="Роутер неисправен (Напрямую все ОК)" />
                                           <Label layoutX="330.0" layoutY="171.0" text="Измерения в Мбит/с" />
@@ -939,7 +994,8 @@
       <Pane prefHeight="26.0" prefWidth="500.0" GridPane.rowIndex="2">
          <children>
             <Button layoutY="-2.0" text="Очистить все" />
-            <Button layoutX="360.0" layoutY="-2.0" prefHeight="25.0" prefWidth="140.0" text="Копировать" />
+            <Button fx:id="copyBtn" layoutX="360.0" layoutY="-2.0" prefHeight="25.0" prefWidth="140.0"
+                    text="Копировать"/>
          </children>
       </Pane>
       <Pane cache="true" cacheHint="SPEED" focusTraversable="true" prefHeight="218.0" prefWidth="500.0" GridPane.rowIndex="1">
