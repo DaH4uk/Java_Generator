@@ -294,18 +294,305 @@ public class Controller
 
 
     //-----------------------------------------------------------------------------------------------
-    public void setCtvShowChek()
+
+
+    //Logic for DOM.RU TV
+    //-----------------------------------------------------------------------------------------------
+    //Tab CKTV:
+    public RadioButton radioCKTVDecoder;
+    public RadioButton radioCamModule;
+    public CheckBox chkDecoderRestarted;
+    public CheckBox chkDecoderRebootet;
+    public CheckBox chkCamInsered;
+    public CheckBox chkCamChannelsResearched;
+
+    public CheckBox chkSpillageImage;
+    public CheckBox chkFadingImage;
+    public CheckBox chkBroadcastingInterruption;
+    public CheckBox chkNoBrodcastOnAllChannels;
+    public CheckBox chkNoBrodcastOnCoddedChannels;
+    public CheckBox chkNoBrodcastOnSomeChannels;
+    public CheckBox chkDontOpenPortal;
+    public CheckBox chkNoSound;
+
+    public void WhatHappeningClicked() {
+        if (chkSpillageImage.isSelected() || chkFadingImage.isSelected() || chkBroadcastingInterruption.isSelected()
+                || chkNoBrodcastOnCoddedChannels.isSelected() || chkNoBrodcastOnSomeChannels.isSelected() || chkNoSound.isSelected()) {
+            chkNoBrodcastOnAllChannels.setSelected(false);
+        }
+    }
+
+    public void NoBrodcastOnAllChannelsClicked() {
+        if (chkNoBrodcastOnAllChannels.isSelected()) {
+            chkSpillageImage.setSelected(false);
+            chkFadingImage.setSelected(false);
+            chkBroadcastingInterruption.setSelected(false);
+            chkNoBrodcastOnCoddedChannels.setSelected(false);
+            chkNoBrodcastOnSomeChannels.setSelected(false);
+            chkNoSound.setSelected(false);
+        }
+
+    }
+
+    public void CktvDecoderOrCamClicked()
     {
-        if (ctvShowChk.isSelected() == true)
+        if (radioCKTVDecoder.isSelected())
         {
+            chkDecoderRestarted.setDisable(false);
+            chkDecoderRebootet.setDisable(false);
+            chkCamInsered.setDisable(true);
+            chkCamChannelsResearched.setDisable(true);
+        } else {
+            chkDecoderRestarted.setDisable(true);
+            chkDecoderRebootet.setDisable(true);
+            chkCamInsered.setDisable(false);
+            chkCamChannelsResearched.setDisable(false);
+        }
+    }
+
+    public void CktvCtvChekClicked() {
+        if (ctvShowChk.isSelected() == true) {
             ctvShowBtnYes.setDisable(false);
             ctvShowBtnNo.setDisable(false);
         } else {
             ctvShowBtnYes.setDisable(true);
             ctvShowBtnNo.setDisable(true);
         }
-
     }
 
+    //-----------------------------------------------------------------------------------------------
+
+    //Tab KTV:
+    public CheckBox ktvQalityOfSignal;
+    public CheckBox ktvInterferencel;
+    public CheckBox ktvNoSound;
+    public CheckBox ktvBlackAndWhiteImage;
+    public CheckBox ktvNoSignal;
+    public RadioButton ktvNoSignalAll;
+    public RadioButton ktvNoSignalOnSome;
+
+
+    public void KtvQalityOfSignalClicked() {
+        if (ktvQalityOfSignal.isSelected()) {
+            ktvInterferencel.setDisable(false);
+            ktvNoSound.setDisable(false);
+            ktvBlackAndWhiteImage.setDisable(false);
+        } else {
+            ktvInterferencel.setDisable(true);
+            ktvNoSound.setDisable(true);
+            ktvBlackAndWhiteImage.setDisable(true);
+        }
+    }
+
+    public void KtvNoSignalClicked() {
+        if (ktvNoSignal.isSelected()) {
+            ktvNoSignalAll.setDisable(false);
+            ktvNoSignalOnSome.setDisable(false);
+        } else {
+            ktvNoSignalAll.setDisable(true);
+            ktvNoSignalOnSome.setDisable(true);
+        }
+    }
+    //-----------------------------------------------------------------------------------------------
+
+    //Logic for Phone
+    //-----------------------------------------------------------------------------------------------
+    //Tab NoSession:
+    public RadioButton radioPhoneOperStatDown;
+    public RadioButton radioPhoneOperStatUp;
+    public RadioButton radioPhoneMacVisiableNo;
+    public RadioButton radioPhoneMacVisiableYes;
+
+    public void PhoneNoSessionOperStatClicked() {
+        if (radioPhoneOperStatDown.isSelected()) {
+            radioPhoneMacVisiableNo.setDisable(true);
+            radioPhoneMacVisiableYes.setDisable(true);
+        } else {
+            radioPhoneMacVisiableNo.setDisable(false);
+            radioPhoneMacVisiableYes.setDisable(false);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------------
+    //Tab NoSession:
+    public CheckBox chkNoIncConnection;
+    public CheckBox chkNoOutConnection;
+    public CheckBox chkSipRegistration;
+    public CheckBox chkCallFromOffice;
+    public CheckBox chkWithSpecificNumber;
+    public CheckBox chkOtherTA;
+    public RadioButton radioNumberMatch;
+    public RadioButton radioNumberNoMatch;
+    public RadioButton radioBeepInHandsetYes;
+    public RadioButton radioBeepInHandsetNo;
+    public RadioButton radioSipRegistrationYes;
+    public RadioButton radioSipRegistrationNo;
+    public RadioButton radioCallFromOfficeNo;
+    public RadioButton radioCallFromOfficeYes;
+    public RadioButton radioOtherTAYes;
+    public RadioButton radioOtherTANo;
+    public TextField txtfieldWithSpecificNumber;
+
+    public void NoIncConnectionClicked() {
+        if (chkNoIncConnection.isSelected() && !chkNoOutConnection.isSelected()) {
+            radioNumberMatch.setDisable(false);
+            radioNumberNoMatch.setDisable(false);
+            radioBeepInHandsetYes.setDisable(true);
+            radioBeepInHandsetNo.setDisable(true);
+        } else if (chkNoIncConnection.isSelected() && chkNoOutConnection.isSelected()) {
+            radioNumberMatch.setDisable(true);
+            radioNumberNoMatch.setDisable(true);
+            radioBeepInHandsetYes.setDisable(false);
+            radioBeepInHandsetNo.setDisable(false);
+        } else {
+            radioNumberMatch.setDisable(true);
+            radioNumberNoMatch.setDisable(true);
+            radioBeepInHandsetYes.setDisable(true);
+            radioBeepInHandsetNo.setDisable(true);
+        }
+    }
+
+    public void SipRegistrationClicked() {
+        if (chkSipRegistration.isSelected()) {
+            radioSipRegistrationYes.setDisable(false);
+            radioSipRegistrationNo.setDisable(false);
+        } else {
+            radioSipRegistrationYes.setDisable(true);
+            radioSipRegistrationNo.setDisable(true);
+        }
+    }
+
+    public void CallFromOfficeClicked() {
+        if (chkCallFromOffice.isSelected()) {
+            radioCallFromOfficeYes.setDisable(false);
+            radioCallFromOfficeNo.setDisable(false);
+        } else {
+            radioCallFromOfficeYes.setDisable(true);
+            radioCallFromOfficeNo.setDisable(true);
+        }
+    }
+
+    public void WithSpecificNumberClicked() {
+        if (chkWithSpecificNumber.isSelected()) {
+            txtfieldWithSpecificNumber.setDisable(false);
+        } else {
+            txtfieldWithSpecificNumber.setDisable(true);
+
+        }
+    }
+
+    public void OtherTAClicked() {
+        if (chkOtherTA.isSelected()) {
+            radioOtherTAYes.setDisable(false);
+            radioOtherTANo.setDisable(false);
+        } else {
+            radioOtherTAYes.setDisable(true);
+            radioOtherTANo.setDisable(true);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------------
+    //Tab ConnectionQality:
+    public CheckBox chkLossToSwitch;
+    public CheckBox chkErrorsForPort;
+    public CheckBox chkLossToGateway;
+    public CheckBox chkSignalAmplification;
+    public TextField txtfieldLossToSwitch;
+    public TextField txtfieldErrorsForPort;
+    public TextField txtfieldLossToGateway;
+    public RadioButton radioSignalAmplificationUp;
+    public RadioButton radioSignalAmplificationDown;
+
+    public void LossToSwitchClicked() {
+        if (chkLossToSwitch.isSelected()) {
+            txtfieldLossToSwitch.setDisable(false);
+        } else {
+            txtfieldLossToSwitch.setDisable(true);
+        }
+    }
+
+    public void ErrorsForPortClicked() {
+        if (chkErrorsForPort.isSelected()) {
+            txtfieldErrorsForPort.setDisable(false);
+        } else {
+            txtfieldErrorsForPort.setDisable(true);
+        }
+    }
+
+    public void LossToGatewayClicked() {
+        if (chkLossToGateway.isSelected()) {
+            txtfieldLossToGateway.setDisable(false);
+        } else {
+            txtfieldLossToGateway.setDisable(true);
+        }
+    }
+
+    public void SignalAmplificationClicked() {
+        if (chkSignalAmplification.isSelected()) {
+            radioSignalAmplificationUp.setDisable(false);
+            radioSignalAmplificationDown.setDisable(false);
+        } else {
+            radioSignalAmplificationUp.setDisable(true);
+            radioSignalAmplificationDown.setDisable(true);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------
+    //Tab IVR,AON...:
+    public CheckBox chkAon;
+    public CheckBox chkIVR;
+    public RadioButton radioAonNotWork;
+    public RadioButton radioAonIncorrectWork;
+    public RadioButton radioThrough7;
+    public RadioButton radioThrough7and8;
+    public RadioButton radioDialingLandlineNumber;
+    public Label lableSimplesOfNumber;
+    public Label lableDetectedNumber;
+    public Label labelFormatOfNumber;
+    public Label labelNumberSimpleses;
+    public TextField txtfieldSimplesOfNumber;
+    public TextField txtfieldDetectedNumber;
+    public TextField txtfieldNumberSimpleses;
+
+    public void AonClicked() {
+        if (chkAon.isSelected()) {
+            radioAonNotWork.setDisable(false);
+            radioAonIncorrectWork.setDisable(false);
+            lableSimplesOfNumber.setDisable(false);
+            lableDetectedNumber.setDisable(false);
+            txtfieldSimplesOfNumber.setDisable(false);
+            txtfieldDetectedNumber.setDisable(false);
+        } else {
+            radioAonNotWork.setDisable(true);
+            radioAonIncorrectWork.setDisable(true);
+            lableSimplesOfNumber.setDisable(true);
+            lableDetectedNumber.setDisable(true);
+            txtfieldSimplesOfNumber.setDisable(true);
+            txtfieldDetectedNumber.setDisable(true);
+        }
+    }
+
+    public void IVRClicked() {
+        if (chkIVR.isSelected()) {
+            labelFormatOfNumber.setDisable(false);
+            labelNumberSimpleses.setDisable(false);
+            radioThrough7.setDisable(false);
+            radioThrough7and8.setDisable(false);
+            radioDialingLandlineNumber.setDisable(false);
+            txtfieldNumberSimpleses.setDisable(false);
+        } else {
+            labelFormatOfNumber.setDisable(true);
+            labelNumberSimpleses.setDisable(true);
+            radioThrough7.setDisable(true);
+            radioThrough7and8.setDisable(true);
+            radioDialingLandlineNumber.setDisable(true);
+            txtfieldNumberSimpleses.setDisable(true);
+        }
+    }
+    //-----------------------------------------------------------------------------------------------
 
 }
