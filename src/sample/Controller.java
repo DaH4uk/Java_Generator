@@ -67,14 +67,6 @@ public class Controller
     public RadioButton radioMacOfNeighborsYes;
     public RadioButton radioMacOfNeighborsNo;
 
-
-
-
-
-
-
-
-
     public void initializeTestexe()
     {
         testDatePicker.setValue(LocalDate.now());
@@ -113,6 +105,7 @@ public class Controller
             createReqest.setVisible(true);
             textReqest.setVisible(true);
             copyBtn.setVisible(true);
+            textReqest.setWrapText(true);
         } catch (Exception e)
         {
 
@@ -122,6 +115,13 @@ public class Controller
     //Logic for INTERNET
     //-----------------------------------------------------------------------------------------------
     //Tab ERRORS:
+
+    public RadioButton radioNetCableNotConnected;
+    public RadioButton radioRemotePCNotAnswer;
+    public CheckBox chkMagistralPortNo;
+    public CheckBox chkNoSessionsOfNeighbors;
+    public CheckBox chkProblemPort;
+
 
     public void operStatClicled() {
         if (radioOperStatUp.isSelected()) {
@@ -135,7 +135,11 @@ public class Controller
             txtMacBelongs.setDisable(true);
             radioMacBelongsNo.setDisable(true);
             radioMacBelongsYes.setDisable(true);
-            radioMacVisiableNo.setSelected(true);
+            radioMacBelongsNo.setSelected(true);
+            chkNoSessionsOfNeighbors.setVisible(false);
+            chkNoSessionsOfNeighbors.setSelected(false);
+            chkMagistralPortNo.setVisible(false);
+            chkMagistralPortNo.setSelected(false);
         }
 
         if (radioCommutIsControlledNo.isSelected() && radioOperStatUp.isSelected()) {
@@ -161,6 +165,10 @@ public class Controller
             txtMacBelongs.setDisable(true);
             radioMacBelongsNo.setDisable(true);
             radioMacBelongsYes.setDisable(true);
+            chkNoSessionsOfNeighbors.setVisible(false);
+            chkNoSessionsOfNeighbors.setSelected(false);
+            chkMagistralPortNo.setVisible(false);
+            chkMagistralPortNo.setSelected(false);
         }
     }
 
@@ -200,6 +208,26 @@ public class Controller
             chkPortRestarted.setDisable(true);
         } else {
             chkPortRestarted.setDisable(false);
+        }
+    }
+
+    public void MacBelongsClientClicked() {
+        if (radioMacBelongsYes.isSelected()) {
+            chkNoSessionsOfNeighbors.setVisible(true);
+        } else {
+            chkNoSessionsOfNeighbors.setVisible(false);
+            chkNoSessionsOfNeighbors.setSelected(false);
+            chkMagistralPortNo.setVisible(false);
+            chkMagistralPortNo.setSelected(false);
+        }
+    }
+
+    public void NoSessionsOfNeighborsClicked() {
+        if (chkNoSessionsOfNeighbors.isSelected()) {
+            chkMagistralPortNo.setVisible(true);
+        } else {
+            chkMagistralPortNo.setVisible(false);
+            chkMagistralPortNo.setSelected(false);
         }
     }
 
@@ -594,5 +622,49 @@ public class Controller
         }
     }
     //-----------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------------
+    //Create Button:
+
+    public void CreateButton() {
+        String reqest = "";
+
+        if (tabInternet.isSelected()) {
+            //logic for create requests on the internet tab:
+            if (chkProblemPort.isSelected()) {
+                reqest = reqest + "Клиент попал в отчет по проблемным портам. ";
+            }
+
+            if (tabErrors651.isSelected()) {
+                //logic for create requests on the internet and errors tab:
+                if (radioNetCableNotConnected.isSelected()) {
+                    reqest = reqest + "Сетевой кабель не подключен. ";
+                } else {
+                    reqest = reqest + "Удалённый компьютер не отвечает. ";
+                }
+
+                if (radioCommutIsControlledYes.isSelected()) {
+                    reqest = reqest + "Подключен к упр. коммутатору. ";
+                } else {
+                    reqest = reqest + "Подключен к неупр. коммутатору. ";
+                }
+                if (radioOperStatDown.isSelected()) {
+                    reqest = reqest + "По EQM Oper status DOWN. Mac-адрес не виден. ";
+                } else {
+                    reqest = reqest + "По EQM Oper status UP. ";
+
+                }
+
+                //if ()
+            }
+
+        } else if (tabTV.isSelected()) {
+            textReqest.setText("Дом.руТВ");
+        } else if (tabPhone.isSelected()) {
+            textReqest.setText("Телефония");
+        }
+        textReqest.setWrapText(true);
+        textReqest.setText(reqest);
+    }
 
 }
