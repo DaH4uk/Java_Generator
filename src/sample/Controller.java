@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.time.LocalDate;
-
+import java.util.Date;
 
 
 public class Controller
@@ -21,13 +21,24 @@ public class Controller
     public CheckBox soSlovClienta;
     public CheckBox podklychenieCabelya;
     public CheckBox udobnoeVremya;
+    public CheckBox chkPortNoReaction;
+    public CheckBox chkPortMode;
+    public CheckBox chkRouterFaulty;
+    public CheckBox chkRouterReplacement;
     public ComboBox timeSz;
+    public ComboBox comboPortMode;
+    public ComboBox comboReason;
     public DatePicker dateCZ;
     public Label textKT;
     public TextField contactPhone;
     public CheckBox clientConflict;
     public CheckBox fromPPd;
     public CheckBox szWithoutGraffic;
+    public CheckBox chkNeighborsMore3Disc;
+    public CheckBox chkAccumErros;
+    public CheckBox chkPortFlopCheck;
+    public CheckBox chkSrotmControl;
+    public CheckBox chkStp;
     public CheckBox onHold;
     public CheckBox garantService;
     public javafx.scene.control.Button createReqest;
@@ -187,18 +198,24 @@ public class Controller
             txtfieldBreaks2Pair.setDisable(true);
             txtBreaks1Pair.setDisable(true);
             txtBreaks2Pair.setDisable(true);
+            chkBreaks1Pair.setSelected(false);
+            chkBreaks2Pair.setSelected(false);
+            txtfieldBreaks1Pair.setText("");
+            txtfieldBreaks2Pair.setText("");
         }
     }
 
     public void CommutIsControlledClicked() {
         if (radioCommutIsControlledNo.isSelected() && radioOperStatUp.isSelected()) {
             chkPortRestarted.setDisable(true);
+            chkPortRestarted.setSelected(false);
             radioMacOfNeighborsNo.setDisable(false);
             radioMacOfNeighborsYes.setDisable(false);
             txtMacOfNeighbors.setDisable(false);
 
         } else {
             chkPortRestarted.setDisable(false);
+            chkPortRestarted.setSelected(false);
             radioMacOfNeighborsNo.setDisable(true);
             radioMacOfNeighborsYes.setDisable(true);
             txtMacOfNeighbors.setDisable(true);
@@ -629,18 +646,41 @@ public class Controller
     public void CreateButton() {
         String reqest = "";
 
+        if (tabInternet.isSelected() || tabTV.isSelected() || tabPhone.isSelected()) {
+            if (szWithoutGraffic.isSelected()) {
+                reqest = reqest + "ВЫСОКИЙ ПРИОРИТЕТ! ";
+                if (udobnoeVremya.isSelected()) {
+                    reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+                }
+            }
+            if (fromPPd.isSelected()) {
+                reqest = reqest + "От ППД. ";
+            }
+            if (onHold.isSelected()) {
+                reqest = reqest + "Удержание. ";
+            }
+            if (garantService.isSelected()) {
+                reqest = reqest + "Гарантийное обслуживание. ";
+            }
+        }
+
+
         if (tabInternet.isSelected()) {
             //logic for create requests on the internet tab:
             if (chkProblemPort.isSelected()) {
                 reqest = reqest + "Клиент попал в отчет по проблемным портам. ";
             }
-
             if (tabErrors651.isSelected()) {
                 //logic for create requests on the internet and errors tab:
-                if (radioNetCableNotConnected.isSelected()) {
-                    reqest = reqest + "Сетевой кабель не подключен. ";
+                if (chkRouterFaulty.isSelected()) {
+                    reqest = reqest + "Подозрение на неисправность роутера. ";
                 } else {
-                    reqest = reqest + "Удалённый компьютер не отвечает. ";
+                    if (radioNetCableNotConnected.isSelected()) {
+                        reqest = reqest + "Сетевой кабель не подключен. ";
+                    } else {
+                        reqest = reqest + "Удалённый компьютер не отвечает. ";
+                    }
                 }
 
                 if (radioCommutIsControlledYes.isSelected()) {
@@ -652,16 +692,75 @@ public class Controller
                     reqest = reqest + "По EQM Oper status DOWN. Mac-адрес не виден. ";
                 } else {
                     reqest = reqest + "По EQM Oper status UP. ";
-
+                    if (radioMacVisiableNo.isSelected()) {
+                        reqest = reqest + "Mac-адрес не виден. ";
+                    } else {
+                        if (radioMacBelongsNo.isSelected()) {
+                            reqest = reqest + "За портом Mac-адрес не клиента. ";
+                        }
+                        if (radioCommutIsControlledNo.isSelected() && radioMacOfNeighborsNo.isSelected()) {
+                            reqest = reqest + "Mac-адреса других клиентов не видны. ";
+                        }
+                        if (radioCommutIsControlledNo.isSelected() && radioMacOfNeighborsYes.isSelected()) {
+                            reqest = reqest + "Mac-адреса других клиентов видны. ";
+                        }
+                    }
                 }
 
-                //if ()
+                if (radioOperStatDown.isSelected() && chkBreaks.isSelected()) {
+                    reqest = reqest + "Зафиксирован обрыв ";
+                    if (chkBreaks1Pair.isSelected()) {
+                        reqest = reqest + "1 пары на " + txtfieldBreaks1Pair.getText() + " метре. ";
+                    }
+                    if (chkBreaks2Pair.isSelected()) {
+                        reqest = reqest + "2 пары на " + txtfieldBreaks1Pair.getText() + " метре. ";
+                    }
+                }
+                if (chkPortNoReaction.isSelected()) {
+                    reqest = reqest + "Порт не реагирует на отключение кабеля. ";
+                }
+                if (chkPortRestarted.isSelected()) {
+                    reqest = reqest + "Порт перезапускали. ";
+                }
+                if (chkPortMode.isSelected()) {
+                    reqest = reqest + "Порт работает в режиме " + comboPortMode.getValue() +
+                            " В параметрах драйвера Lan указывали 100 Mb/Full-Duplex, ситуация не изменилась. ";
+                }
+                if (chkRouterFaulty.isSelected()) {
+                    reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность. ";
+                } else if (chkRouterFaulty.isSelected() && chkRouterReplacement.isSelected()) {
+                    reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность и при необходимости заменить. ";
+                }
+
+            } else if (tabBreaks.isSelected()) {
+                reqest = reqest + "Частые разрывы соединения по причине " + comboReason.getValue() + ". ";
+                if ((comboReason.getValue().equals("Lost-Carrier ") || comboReason.getValue().equals("Lost-Carrier") || comboReason.getValue().equals("Lost-Service")
+                        || comboReason.getValue().equals("Port-Error") || comboReason.getValue().equals("NAS-Error") || comboReason.getValue().equals("NAS-Reboot")
+                        || comboReason.getValue().equals("NAS-Request")) && !chkNeighborsMore3Disc.isSelected() && !chkAccumErros.isSelected()
+                        && !chkPortFlopCheck.isSelected() && !chkSrotmControl.isSelected() && !chkStp.isSelected()) {
+                    reqest = reqest + "Ошибок за портом, падений порта нет. В логах Storm Control и STP пусто. ";
+                }
             }
 
         } else if (tabTV.isSelected()) {
             textReqest.setText("Дом.руТВ");
         } else if (tabPhone.isSelected()) {
             textReqest.setText("Телефония");
+        }
+        if (tabInternet.isSelected() || tabTV.isSelected() || tabPhone.isSelected()) {
+            if (clientConflict.isSelected()) {
+                reqest = reqest + "Клиент конфликтный. ";
+            }
+
+            if (soSlovClienta.isSelected() && podklychenieCabelya.isSelected()) {
+                reqest = reqest + "Со слов клиента, кабель подключен плотно и повреждений не имеет. ";
+            } else if (podklychenieCabelya.isSelected()) {
+                reqest = reqest + "Подключение кабеля проверено, повреждений нет. ";
+            }
+            if (udobnoeVremya.isSelected()) {
+                reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
+                        + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+            }
         }
         textReqest.setWrapText(true);
         textReqest.setText(reqest);

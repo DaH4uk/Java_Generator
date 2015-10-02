@@ -30,9 +30,9 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="Текст ошибки:" underline="true" />
+                                           <Label layoutX="15.0" layoutY="6.0" text="Текст ошибки:" underline="true"/>
                                            <RadioButton fx:id="radioNetCableNotConnected" cache="true"
-                                                        graphicTextGap="3.0" layoutX="14.0" layoutY="23.0"
+                                                        graphicTextGap="3.0" layoutX="15.0" layoutY="23.0"
                                                         selected="true" text="Сетевой кабель не подключен">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="txtErr" />
@@ -40,8 +40,9 @@
                                           </RadioButton>
                                            <RadioButton fx:id="radioRemotePCNotAnswer" layoutX="211.0" layoutY="23.0"
                                                         text="Удаленный компьютер не отвечает" toggleGroup="$txtErr"/>
-                                          <Label layoutX="14.0" layoutY="40.0" text="Oper status:" textAlignment="CENTER" underline="true" />
-                                           <RadioButton fx:id="radioOperStatDown" layoutX="14.0" layoutY="57.0"
+                                           <Label layoutX="15.0" layoutY="40.0" text="Oper status:"
+                                                  textAlignment="CENTER" underline="true"/>
+                                           <RadioButton fx:id="radioOperStatDown" layoutX="15.0" layoutY="57.0"
                                                         onAction="#operStatClicled" selected="true" text="Down"
                                                         textFill="#900000">
                                              <toggleGroup>
@@ -74,8 +75,8 @@
                                            <RadioButton fx:id="radioCommutIsControlledNo" layoutX="299.0" layoutY="57.0"
                                                         onAction="#CommutIsControlledClicked" text="Нет"
                                                         toggleGroup="$commut"/>
-                                          <Label layoutX="14.0" layoutY="74.0" text="Обрыв:" underline="true" />
-                                           <CheckBox fx:id="chkBreaks" layoutX="13.0" layoutY="91.0"
+                                           <Label layoutX="15.0" layoutY="74.0" text="Обрыв:" underline="true"/>
+                                           <CheckBox fx:id="chkBreaks" layoutX="15.0" layoutY="91.0"
                                                      onAction="#breaksClicked" text="Есть" textFill="#900000"/>
                                            <CheckBox fx:id="chkBreaks1Pair" disable="true" layoutX="78.0" layoutY="91.0"
                                                      text="Пара 1 на "/>
@@ -112,7 +113,7 @@
                                                         layoutY="130.0" mnemonicParsing="false"
                                                         onAction="#MacBelongsClientClicked" text="Да"
                                                         toggleGroup="$macKli"/>
-                                           <VBox layoutX="16.0" layoutY="155.0" prefHeight="96.0" prefWidth="468.0">
+                                           <VBox layoutX="15.0" layoutY="155.0" prefHeight="96.0" prefWidth="480.0">
                                              <children>
                                                 <HBox prefHeight="20.0" prefWidth="468.0">
                                                    <children>
@@ -133,8 +134,9 @@
                                                 </Label>
                                                  <HBox prefHeight="20.0" prefWidth="468.0">
                                                      <children>
-                                                         <CheckBox lineSpacing="2.0" mnemonicParsing="false"
-                                                                   prefHeight="20.0" prefWidth="235.0"
+                                                         <CheckBox fx:id="chkPortNoReaction" lineSpacing="2.0"
+                                                                   mnemonicParsing="false" prefHeight="20.0"
+                                                                   prefWidth="235.0"
                                                                    text="Порт не реагирует на откл. кабеля"/>
                                                          <CheckBox fx:id="chkPortRestarted" mnemonicParsing="false"
                                                                    prefHeight="20.0" text="Порт перезапускали"/>
@@ -152,9 +154,11 @@
                                                 </Label>
                                                  <HBox prefHeight="10.0" prefWidth="468.0">
                                                    <children>
-                                                       <CheckBox mnemonicParsing="false" prefHeight="20.0"
-                                                                 prefWidth="169.0" text="Порт работает в режиме"/>
-                                                       <ComboBox editable="true" prefHeight="20.0" prefWidth="119.0">
+                                                       <CheckBox fx:id="chkPortMode" mnemonicParsing="false"
+                                                                 prefHeight="20.0" prefWidth="169.0"
+                                                                 text="Порт работает в режиме"/>
+                                                       <ComboBox fx:id="comboPortMode" editable="true" prefHeight="20.0"
+                                                                 prefWidth="119.0">
                                                           <items>
                                                               <FXCollections fx:factory="observableArrayList">
                                                                   <String fx:value="10 Mbit" />
@@ -170,14 +174,15 @@
                                                       <Insets right="1.0" />
                                                    </opaqueInsets>
                                                 </HBox>
-                                                 <HBox prefHeight="25.0" prefWidth="468.0">
+                                                 <HBox prefHeight="23.0" prefWidth="473.0">
                                                      <children>
-                                                         <CheckBox mnemonicParsing="false" prefHeight="20.0"
-                                                                   prefWidth="233.0"
+                                                         <CheckBox fx:id="chkRouterFaulty" lineSpacing="2.0"
+                                                                   mnemonicParsing="false" prefHeight="20.0"
+                                                                   prefWidth="242.0"
+                                                                   text="Роутер неисправен (напрямую все ок)"/>
+                                                         <CheckBox fx:id="chkRouterReplacement" mnemonicParsing="false"
+                                                                   prefHeight="20.0" prefWidth="233.0"
                                                                    text="Замена роутера при необходимости"/>
-                                                         <CheckBox lineSpacing="2.0" mnemonicParsing="false"
-                                                                   prefHeight="20.0" prefWidth="227.0"
-                                                                   text="Роутер неисправен (напрямю все ок)"/>
                                                      </children>
                                                  </HBox>
                                              </children>
@@ -190,7 +195,8 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <Label layoutX="14.0" layoutY="36.0" text="Причина завершения сессии:" underline="true" />
-                                          <ComboBox editable="true" layoutX="184.0" layoutY="32.0" prefHeight="25.0" prefWidth="149.0">
+                                           <ComboBox fx:id="comboReason" editable="true" layoutX="184.0" layoutY="32.0"
+                                                     prefHeight="25.0" prefWidth="149.0">
                                               <items>
                                                   <FXCollections fx:factory="observableArrayList">
                                                       <String fx:value="Admin-Reset" />
@@ -199,7 +205,6 @@
                                                       <String fx:value="NAS-Error" />
                                                       <String fx:value="NAS-Reboot" />
                                                       <String fx:value="NAS-Request" />
-                                                      <String fx:value="Port-Error" />
                                                       <String fx:value="Port-Error" />
                                                       <String fx:value="User-Request" />
                                                       <String fx:value="Lost-Carrier/User-Request" />
@@ -217,31 +222,36 @@
                                           </TextField>
                                           <VBox layoutX="14.0" layoutY="57.0" prefHeight="200.0" prefWidth="404.0">
                                              <children>
-                                                <CheckBox mnemonicParsing="false" text="У соседей &gt; 3 разрывов в это же время" />
+                                                 <CheckBox fx:id="chkNeighborsMore3Disc" mnemonicParsing="false"
+                                                           text="У соседей &gt; 3 разрывов в это же время"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Копятся ошибки за портом" />
+                                                 <CheckBox fx:id="chkAccumErros" mnemonicParsing="false"
+                                                           text="Копятся ошибки за портом"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Записи в Port flop check (более 5 единовременных падений порта)" />
+                                                 <CheckBox fx:id="chkPortFlopCheck" mnemonicParsing="false"
+                                                           text="Записи в Port flop check (более 5 единовременных падений порта)"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Есть записи в Storm control" />
+                                                 <CheckBox fx:id="chkSrotmControl" mnemonicParsing="false"
+                                                           text="Есть записи в Storm control"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Записи в STP: &quot;New root selected&quot; более 5 в день" />
+                                                 <CheckBox fx:id="chkStp" mnemonicParsing="false"
+                                                           text="Записи в STP: &quot;New root selected&quot; более 5 в день"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="25.0" />
@@ -409,8 +419,9 @@
                               </Tab>
                           </tabs>
                         </TabPane>
-                         <CheckBox fx:id="chkProblemPort" layoutX="16.0" layoutY="283.0" mnemonicParsing="false"
-                                   prefHeight="17.0" prefWidth="140.0" text="Проблемный порт" underline="true">
+                         <CheckBox fx:id="chkProblemPort" layoutX="15.0" layoutY="283.0" mnemonicParsing="false"
+                                   prefHeight="17.0" prefWidth="322.0" text="Клиент попал в отчет по проблемным портам"
+                                   underline="true">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -1143,17 +1154,23 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Pane prefHeight="26.0" prefWidth="500.0" GridPane.rowIndex="2">
+       <Pane prefHeight="30.0" prefWidth="500.0" GridPane.rowIndex="2">
          <children>
-            <Button layoutY="-2.0" text="Очистить все" />
-             <Button fx:id="copyBtn" layoutX="360.0" layoutY="-2.0" prefHeight="25.0" prefWidth="140.0"
+             <Button layoutX="10.0" layoutY="-2.0" text="Очистить все"/>
+             <Button fx:id="copyBtn" layoutX="350.0" layoutY="-2.0" prefHeight="25.0" prefWidth="140.0"
                      text="Копировать"/>
          </children>
       </Pane>
-      <Pane cache="true" cacheHint="SPEED" focusTraversable="true" prefHeight="218.0" prefWidth="500.0" GridPane.rowIndex="1">
+       <Pane cache="true" cacheHint="SPEED" focusTraversable="true" prefHeight="232.0" prefWidth="500.0"
+             GridPane.rowIndex="1">
          <children>
-            <TextArea fx:id="textReqest" cache="true" layoutX="10.0" layoutY="132.0" prefHeight="86.0" prefWidth="480.0" promptText="Текст заявки будет здесь..." />
-            <VBox layoutX="14.0" layoutY="1.0" prefHeight="129.0" prefWidth="470.0">
+             <TextArea fx:id="textReqest" cache="true" layoutX="10.0" layoutY="132.0" prefHeight="102.0"
+                       prefWidth="480.0" promptText="Текст заявки будет здесь...">
+                 <font>
+                     <Font size="11.0"/>
+                 </font>
+             </TextArea>
+             <VBox layoutX="15.0" layoutY="1.0" prefHeight="129.0" prefWidth="470.0">
                <children>
                   <HBox prefHeight="24.0" prefWidth="354.0">
                      <children>
@@ -1206,7 +1223,7 @@
                    <HBox prefHeight="21.0" prefWidth="470.0">
                      <children>
                         <CheckBox fx:id="clientConflict" prefHeight="17.0" prefWidth="146.0" text="Клиент конфликтный" textFill="RED" />
-                        <CheckBox fx:id="fromPPd" prefHeight="17.0" prefWidth="81.0" text="От ППД" textFill="#00b23b" />
+                         <CheckBox fx:id="fromPPd" prefHeight="17.0" prefWidth="75.0" text="От ППД" textFill="#00b23b"/>
                         <CheckBox fx:id="szWithoutGraffic" text="СЗ вне графика" underline="true" />
                      </children>
                   </HBox>
@@ -1219,7 +1236,7 @@
                   </HBox>
                </children>
             </VBox>
-             <Button fx:id="createReqest" layoutX="361.0" layoutY="63.0" mnemonicParsing="false"
+             <Button fx:id="createReqest" layoutX="350.0" layoutY="63.0" mnemonicParsing="false"
                      onAction="#CreateButton" prefHeight="60.0" prefWidth="140.0" text="Создать заявку"/>
          </children>
       </Pane>
