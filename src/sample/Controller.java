@@ -25,9 +25,13 @@ public class Controller
     public CheckBox chkPortMode;
     public CheckBox chkRouterFaulty;
     public CheckBox chkRouterReplacement;
+    public CheckBox chkDisconnectsOnGN;
+    public CheckBox chkRouterFaultys;
+    public CheckBox chkZamena;
     public ComboBox timeSz;
     public ComboBox comboPortMode;
     public ComboBox comboReason;
+    public ComboBox comboSpeedIperfCity;
     public DatePicker dateCZ;
     public Label textKT;
     public TextField contactPhone;
@@ -62,6 +66,7 @@ public class Controller
     public CheckBox chkPortRestarted;
     public TextField txtfieldBreaks1Pair;
     public TextField txtfieldBreaks2Pair;
+    public TextField txtDisconnectsOnGN;
     public Label txtBreaks1Pair;
     public Label txtBreaks2Pair;
     public Label txtMacBelongs;
@@ -271,7 +276,6 @@ public class Controller
     public TextField txtfieldSpeedSTUpload;
     public TextField txtfieldSpeedSTMustBe;
     public TextField txtfieldSpeedIperfSpeed;
-    public TextField txtfieldSpeedIperfCity;
 
     public void ExternalPingClicked() {
         if (chkExternalPing.isSelected()) {
@@ -330,10 +334,10 @@ public class Controller
     public void SpeedIperfClicked() {
         if (chkSpeedIperf.isSelected()) {
             txtfieldSpeedIperfSpeed.setDisable(false);
-            txtfieldSpeedIperfCity.setDisable(false);
+            comboSpeedIperfCity.setDisable(false);
         } else {
             txtfieldSpeedIperfSpeed.setDisable(true);
-            txtfieldSpeedIperfCity.setDisable(true);
+            comboSpeedIperfCity.setDisable(true);
         }
     }
 
@@ -726,13 +730,34 @@ public class Controller
                     reqest = reqest + "Порт работает в режиме " + comboPortMode.getValue() +
                             " В параметрах драйвера Lan указывали 100 Mb/Full-Duplex, ситуация не изменилась. ";
                 }
-                if (chkRouterFaulty.isSelected()) {
-                    reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность. ";
-                } else if (chkRouterFaulty.isSelected() && chkRouterReplacement.isSelected()) {
+                if (chkRouterFaulty.isSelected() && chkRouterReplacement.isSelected()) {
                     reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность и при необходимости заменить. ";
+                } else if (chkRouterFaulty.isSelected()) {
+                    reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность. ";
                 }
 
+                //---------------------------------------------------------------------------------------------------------------------------------------------
             } else if (tabBreaks.isSelected()) {
+
+
+                //LOGIC for BREAKS
+                //----------------------------------------------------------------------------------------------------------------------------------------------
+                if (chkDisconnectsOnGN.isSelected()) {
+                    if (txtDisconnectsOnGN.getText().equals("")) {
+                        if (chkRouterFaultys.isSelected()) {
+                            reqest = reqest + "Подозрение на неисправность роутера. Через роутер: ";
+                        }
+                    } else {
+                        if (chkRouterFaultys.isSelected()) {
+                            reqest = reqest + "Подозрение на неисправность комбо устр-ва. Через комбо: ";
+                        }
+                        reqest = reqest + "ГН: " + txtDisconnectsOnGN.getText() + ". ";
+                    }
+                } else {
+                    if (chkRouterFaultys.isSelected()) {
+                        reqest = reqest + "Подозрение на неисправность роутера. Через роутер: ";
+                    }
+                }
                 reqest = reqest + "Частые разрывы соединения по причине " + comboReason.getValue() + ". ";
                 if ((comboReason.getValue().equals("Lost-Carrier ") || comboReason.getValue().equals("Lost-Carrier") || comboReason.getValue().equals("Lost-Service")
                         || comboReason.getValue().equals("Port-Error") || comboReason.getValue().equals("NAS-Error") || comboReason.getValue().equals("NAS-Reboot")
@@ -740,6 +765,54 @@ public class Controller
                         && !chkPortFlopCheck.isSelected() && !chkSrotmControl.isSelected() && !chkStp.isSelected()) {
                     reqest = reqest + "Ошибок за портом, падений порта нет. В логах Storm Control и STP пусто. ";
                 }
+                if (chkNeighborsMore3Disc.isSelected()) {
+                    reqest = reqest + "У соседей аналогичные разрывы в это же время. ";
+                }
+                if (chkAccumErros.isSelected()) {
+                    reqest = reqest + "Копятся ошибки за портом. ";
+                }
+                if (chkPortFlopCheck.isSelected()) {
+                    reqest = reqest + "Порт периодически падает. ";
+                }
+                if (chkSrotmControl.isSelected()) {
+                    reqest = reqest + "В логах Storm Control фиксируется сетевой шторм. ";
+                }
+                if (chkStp.isSelected()) {
+                    reqest = reqest + "В логах STP фигурируют записи new root selected. ";
+                }
+                if (chkDisconnectsOnGN.isSelected() && !txtDisconnectsOnGN.getText().equals("")) {
+                    if (chkRouterFaultys.isSelected() && chkZamena.isSelected()) {
+                        reqest = reqest + "Напрямую всё в норме. Комбо перезагружали, сбрасывали, перенастраивали. Требуется проверить комбо на работоспособность и при необходимости заменить. ";
+                    } else if (chkRouterFaultys.isSelected()) {
+                        reqest = reqest + "Напрямую всё в норме. Комбо перезагружали, сбрасывали, перенастраивали. Требуется проверить комбо на работоспособность. ";
+                    }
+                } else {
+                    if (chkRouterFaultys.isSelected() && chkZamena.isSelected()) {
+                        reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность и при необходимости заменить. ";
+                    } else if (chkRouterFaultys.isSelected()) {
+                        reqest = reqest + "Напрямую всё в норме. Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность. ";
+                    }
+                }
+
+                //---------------------------------------------------------------------------------------------------------------------------------------------
+            } else if (tabSpeed.isSelected()) {
+                //LOGIC for Internet speed:
+                //----------------------------------------------------------------------------------------------------------------------------------------------
+                reqest = reqest + "Низкая скорость. ";
+
+                if (chkSpeedST.isSelected()) {
+                    reqest = reqest + "По ST: Download: " + txtfieldSpeedSTDownload.getText() + " Мбит/с, Upload: " + txtfieldSpeedSTUpload.getText() +
+                            " Мбит/с. (Должно быть " + txtfieldSpeedSTMustBe.getText() + " Мбит/с). ";
+                }
+                if (chkSpeedIperf.isSelected()) {
+                    reqest = reqest + "По Iperf: " + txtfieldSpeedIperfSpeed.getText() + " Мбит/c до г.: " + comboSpeedIperfCity.getValue() + ". ";
+                }
+                if (chkExternalPing.isSelected()) {
+                    reqest = reqest + "При пинге до " + txtfieldExternalPingAddr.getText() + " " + txtfieldExternalPingSend.getText()
+                            + " пакетами по " + txtfieldExternalPingSize.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldExternalPingReceived.getText()) / Double.parseDouble(txtfieldExternalPingSend.getText())))
+                            + "% потерь. ";
+                }
+
             }
 
         } else if (tabTV.isSelected()) {

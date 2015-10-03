@@ -214,8 +214,10 @@
                                                   <String fx:value="Lost-Carrier " />
                                               </value>
                                           </ComboBox>
-                                          <CheckBox layoutX="14.0" layoutY="6.0" mnemonicParsing="false" text="Разрывы на ГН:" />
-                                          <TextField layoutX="122.0" layoutY="2.0" prefHeight="23.0" prefWidth="115.0" promptText="Номер ГН">
+                                           <CheckBox fx:id="chkDisconnectsOnGN" layoutX="14.0" layoutY="6.0"
+                                                     mnemonicParsing="false" text="Разрывы на ГН:"/>
+                                           <TextField fx:id="txtDisconnectsOnGN" layoutX="122.0" layoutY="2.0"
+                                                      prefHeight="23.0" prefWidth="115.0" promptText="Номер ГН">
                                              <font>
                                                 <Font size="10.0" />
                                              </font>
@@ -257,13 +259,15 @@
                                                       <Font size="25.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Роутер неисправен (напрямую все работает)" />
+                                                 <CheckBox fx:id="chkRouterFaultys" mnemonicParsing="false"
+                                                           text="Роутер неисправен (напрямую все работает)"/>
                                                 <Label text="  ">
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Замена роутера при необходимости" />
+                                                 <CheckBox fx:id="chkZamena" mnemonicParsing="false"
+                                                           text="Замена роутера при необходимости"/>
                                              </children>
                                           </VBox>
                                        </children></AnchorPane>
@@ -282,10 +286,10 @@
                                                                  onAction="#ExternalPingClicked"
                                                                  text="До внешки:         "/>
                                                        <TextField fx:id="txtfieldExternalPingSize" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="1400"/>
                                                       <Label text="     " />
                                                        <TextField fx:id="txtfieldExternalPingSend" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="30"/>
                                                       <Label text="      " />
                                                        <TextField fx:id="txtfieldExternalPingReceived" disable="true"
                                                                   prefHeight="25.0" prefWidth="44.0"/>
@@ -307,12 +311,12 @@
                                                    <children>
                                                        <CheckBox fx:id="chkDNSPing" mnemonicParsing="false"
                                                                  onAction="#DNSPingClicked"
-                                                                 text="До DNS:               "/>
+                                                                 text="До ST:               "/>
                                                        <TextField fx:id="txtfieldDNSSize" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="1400"/>
                                                       <Label text="     " />
                                                        <TextField fx:id="txtfieldDNSSend" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="30"/>
                                                       <Label text="      " />
                                                        <TextField fx:id="txtfieldDNSRecived" disable="true"
                                                                   prefHeight="25.0" prefWidth="44.0"/>
@@ -323,10 +327,10 @@
                                                        <CheckBox fx:id="chkSwitchPing" mnemonicParsing="false"
                                                                  onAction="#SwitchPingClicked" text="До коммутатора:"/>
                                                        <TextField fx:id="txtfieldSwitchSize" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="1400"/>
                                                       <Label text="     " />
                                                        <TextField fx:id="txtfieldSwitchSend" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
+                                                                  prefHeight="25.0" prefWidth="44.0" text="30"/>
                                                       <Label text="      " />
                                                        <TextField fx:id="txtfieldSwitchRecived" disable="true"
                                                                   prefHeight="25.0" prefWidth="44.0"/>
@@ -382,6 +386,50 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
+                                           <ComboBox fx:id="comboSpeedIperfCity" disable="true" editable="true"
+                                                     layoutX="383.0" layoutY="133.0" prefHeight="25.0"
+                                                     prefWidth="115.0">
+                                               <items>
+                                                   <FXCollections fx:factory="observableArrayList">
+                                                       <String fx:value="Барнаул"/>
+                                                       <String fx:value="Брянск"/>
+                                                       <String fx:value="Волгоград"/>
+                                                       <String fx:value="Воронеж"/>
+                                                       <String fx:value="Екатеринбург"/>
+                                                       <String fx:value="Ижевск"/>
+                                                       <String fx:value="Иркутск"/>
+                                                       <String fx:value="Йошкар-Ола"/>
+                                                       <String fx:value="Казань"/>
+                                                       <String fx:value="Киров"/>
+                                                       <String fx:value="Красноярск"/>
+                                                       <String fx:value="Курган"/>
+                                                       <String fx:value="Курск"/>
+                                                       <String fx:value="Липецк"/>
+                                                       <String fx:value="Магнитогорск"/>
+                                                       <String fx:value="Набережные Челны"/>
+                                                       <String fx:value="Нижний Новгород"/>
+                                                       <String fx:value="Новосибирск"/>
+                                                       <String fx:value="Омск"/>
+                                                       <String fx:value="Оренбург"/>
+                                                       <String fx:value="Пенза"/>
+                                                       <String fx:value="Пермь"/>
+                                                       <String fx:value="Ростов-на-Дону"/>
+                                                       <String fx:value="Рязань"/>
+                                                       <String fx:value="Самара"/>
+                                                       <String fx:value="Санкт-Петербург"/>
+                                                       <String fx:value="Саратов"/>
+                                                       <String fx:value="Тверь"/>
+                                                       <String fx:value="Томск"/>
+                                                       <String fx:value="Тула"/>
+                                                       <String fx:value="Тюмень"/>
+                                                       <String fx:value="Ульяновск"/>
+                                                       <String fx:value="Уфа"/>
+                                                       <String fx:value="Чебоксары"/>
+                                                       <String fx:value="Челябинск"/>
+                                                       <String fx:value="Ярославль"/>
+                                                   </FXCollections>
+                                               </items>
+                                           </ComboBox>
                                           <Label layoutX="398.0" layoutY="24.0" text="Upload:">
                                              <font>
                                                 <Font size="10.0" />
@@ -409,8 +457,6 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                           <TextField fx:id="txtfieldSpeedIperfCity" disable="true" layoutX="383.0"
-                                                      layoutY="133.0" prefHeight="25.0" prefWidth="89.0"/>
                                           <CheckBox layoutX="339.0" layoutY="220.0" mnemonicParsing="false" text="Замена роутера" />
                                           <CheckBox layoutX="250.0" layoutY="192.0" mnemonicParsing="false" text="Роутер неисправен (Напрямую все ОК)" />
                                           <Label layoutX="330.0" layoutY="171.0" text="Измерения в Мбит/с" />
