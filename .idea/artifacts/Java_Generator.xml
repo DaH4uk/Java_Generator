@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Java Generator">
+    <output-path>$PROJECT_DIR$/..</output-path>
+    <root id="root">
+      <element id="archive" name="Java_Generator.jar">
+        <element id="module-output" name="Java Generator" />
+      </element>
+    </root>
+  </artifact>
+</component>

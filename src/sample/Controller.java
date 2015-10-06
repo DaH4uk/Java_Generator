@@ -1,12 +1,22 @@
 package sample;
 
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 
 public class Controller
@@ -45,6 +55,7 @@ public class Controller
     public CheckBox chkStp;
     public CheckBox onHold;
     public CheckBox garantService;
+    public CheckBox chkErrorsOnPortSpeedUp;
     public javafx.scene.control.Button createReqest;
     public TextArea textReqest;
     public Tab tabInternet;
@@ -67,6 +78,7 @@ public class Controller
     public TextField txtfieldBreaks1Pair;
     public TextField txtfieldBreaks2Pair;
     public TextField txtDisconnectsOnGN;
+    public TextField txtErrorsOnPortSpeed;
     public Label txtBreaks1Pair;
     public Label txtBreaks2Pair;
     public Label txtMacBelongs;
@@ -260,6 +272,10 @@ public class Controller
     public CheckBox chkSwitchPing;
     public CheckBox chkSpeedST;
     public CheckBox chkSpeedIperf;
+    public CheckBox chkDiffWifi;
+    public CheckBox chkRouterFaultyses;
+    public CheckBox chkZamenas;
+    public ComboBox comboDiffWifi;
     public TextField txtfieldExternalPingSize;
     public TextField txtfieldExternalPingSend;
     public TextField txtfieldExternalPingReceived;
@@ -276,6 +292,21 @@ public class Controller
     public TextField txtfieldSpeedSTUpload;
     public TextField txtfieldSpeedSTMustBe;
     public TextField txtfieldSpeedIperfSpeed;
+
+    public void RouterFaultClicked() {
+        if (chkRouterFaultyses.isSelected()) {
+            chkDiffWifi.setDisable(false);
+            chkZamenas.setDisable(false);
+            comboDiffWifi.setDisable(false);
+        } else {
+            chkDiffWifi.setDisable(true);
+            chkZamenas.setDisable(true);
+            comboDiffWifi.setDisable(true);
+            chkDiffWifi.setSelected(false);
+            chkZamenas.setSelected(false);
+        }
+    }
+
 
     public void ExternalPingClicked() {
         if (chkExternalPing.isSelected()) {
@@ -651,12 +682,23 @@ public class Controller
         String reqest = "";
 
         if (tabInternet.isSelected() || tabTV.isSelected() || tabPhone.isSelected()) {
+            try {
             if (szWithoutGraffic.isSelected()) {
                 reqest = reqest + "ВЫСОКИЙ ПРИОРИТЕТ! ";
                 if (udobnoeVremya.isSelected()) {
                     reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
                             + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+                } else {
+                    reqest = reqest + "Требуется СЗ вне графика на " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
                 }
+            }
+            } catch (Exception e) {
+                Alert alert4 = new Alert(Alert.AlertType.INFORMATION);
+                alert4.setTitle("Ошибка");
+                alert4.setHeaderText(null);
+                alert4.setContentText("Пожалуйста выберите дату!");
+                alert4.showAndWait();
             }
             if (fromPPd.isSelected()) {
                 reqest = reqest + "От ППД. ";
@@ -798,6 +840,15 @@ public class Controller
             } else if (tabSpeed.isSelected()) {
                 //LOGIC for Internet speed:
                 //----------------------------------------------------------------------------------------------------------------------------------------------
+                if (chkRouterFaultyses.isSelected()) {
+                    reqest = reqest + "Подозрение на неисправность роутера. ";
+                    if (chkDiffWifi.isSelected()) {
+                        reqest = reqest + "Через роутер по wi-fi: " + comboDiffWifi.getValue() + ". ";
+                    } else {
+                        reqest = reqest + "Через роутер по патч-корду: ";
+                    }
+                }
+
                 reqest = reqest + "Низкая скорость. ";
 
                 if (chkSpeedST.isSelected()) {
@@ -807,16 +858,168 @@ public class Controller
                 if (chkSpeedIperf.isSelected()) {
                     reqest = reqest + "По Iperf: " + txtfieldSpeedIperfSpeed.getText() + " Мбит/c до г.: " + comboSpeedIperfCity.getValue() + ". ";
                 }
-                if (chkExternalPing.isSelected()) {
-                    reqest = reqest + "При пинге до " + txtfieldExternalPingAddr.getText() + " " + txtfieldExternalPingSend.getText()
-                            + " пакетами по " + txtfieldExternalPingSize.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldExternalPingReceived.getText()) / Double.parseDouble(txtfieldExternalPingSend.getText())))
-                            + "% потерь. ";
+                try {
+                    if (chkExternalPing.isSelected()) {
+                        reqest = reqest + "При пинге до " + txtfieldExternalPingAddr.getText() + " " + txtfieldExternalPingSend.getText()
+                                + " пакетами по " + txtfieldExternalPingSize.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldExternalPingReceived.getText()) / Double.parseDouble(txtfieldExternalPingSend.getText())))
+                                + "% потерь. ";
+                    }
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Ошибка");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Введите корректное число полученных/отправленных пакетов до " + txtfieldExternalPingAddr.getText() + "!");
+
+                    alert.showAndWait();
+                }
+
+
+                try {
+                    if (chkDNSPing.isSelected()) {
+                        reqest = reqest + "При пинге до ST " + txtfieldDNSSend.getText()
+                                + " пакетами по " + txtfieldDNSSize.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldDNSRecived.getText()) / Double.parseDouble(txtfieldDNSSend.getText())))
+                                + "% потерь. ";
+                    }
+                } catch (Exception e) {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Ошибка");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Введите корректное число полученных/отправленных пакетов до ST!");
+                    alert2.showAndWait();
+                }
+
+                try {
+                    if (chkSwitchPing.isSelected()) {
+                        reqest = reqest + " При пинге до коммутатора (Ip: " + txtfieldSwitchIP.getText() + ") " + txtfieldSwitchSend.getText() +
+                                " пакетами по " + txtfieldSwitchSize.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldSwitchRecived.getText()) / Double.parseDouble(txtfieldSwitchSend.getText()))) + "% потерь.  Клиент подключен к порту: " + txtfieldSwitchPort.getText() + ". ";
+                    }
+                } catch (Exception e) {
+                    Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                    alert3.setTitle("Ошибка");
+                    alert3.setHeaderText(null);
+                    alert3.setContentText("Введите корректное число полученных/отправленных пакетов до коммутатора!");
+                    alert3.showAndWait();
+                }
+
+                if (txtErrorsOnPortSpeed.getText().equals("0")) {
+                    reqest = reqest + "Ошибок за портом нет. ";
+                } else {
+                    reqest = reqest + "Ошибок за портом: " + txtErrorsOnPortSpeed.getText() + ". ";
+                    if (chkErrorsOnPortSpeedUp.isSelected()) {
+                        reqest = reqest + "Число ошибок растет. ";
+                    }
+                }
+
+                if (chkRouterFaultyses.isSelected()) {
+                    reqest = reqest + "Напрямую скорость согласно ТП. ";
+                    if (chkDiffWifi.isSelected()) {
+                        reqest = reqest + "Канал меняли. ";
+                    }
+                    if (!chkZamenas.isSelected()) {
+                        reqest = reqest + " Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность. ";
+                    } else {
+                        reqest = reqest + " Роутер перезагружали, сбрасывали, перенастраивали. Требуется проверить роутер на работоспособность и при необходимости заменить. ";
+                    }
                 }
 
             }
+            //----------------------------------------------------------------------------------------------------------------------------------------------
 
         } else if (tabTV.isSelected()) {
-            textReqest.setText("Дом.руТВ");
+            //logic for create requests on the Дом.руТВ tab:
+            if (tabCktv.isSelected()) {
+                reqest = reqest + "ЦКТВ. ";
+                if (chkSpillageImage.isSelected()) {
+                    if (chkSpillageImage.isSelected() && chkFadingImage.isSelected()) {
+                        reqest = reqest + "Наблюдается рассыпание, замирание изображения. ";
+                    } else {
+                        reqest = reqest + "Наблюдается рассыпание изображения. ";
+                    }
+                }
+                if (chkFadingImage.isSelected() && !(chkSpillageImage.isSelected() && chkFadingImage.isSelected())) {
+                    reqest = reqest + "Наблюдается замирание изображения. ";
+                }
+                if (chkBroadcastingInterruption.isSelected()) {
+                    reqest = reqest + "Прерывается вещание на нескольких каналах. ";
+                }
+                if (chkNoBrodcastOnAllChannels.isSelected()) {
+                    reqest = reqest + "Нет вещания на всех каналах. ";
+                }
+                if (chkNoBrodcastOnCoddedChannels.isSelected()) {
+                    reqest = reqest + "Нет вещания на закодированных каналах. ";
+                }
+                if (chkNoBrodcastOnSomeChannels.isSelected()) {
+                    TextInputDialog dialog = new TextInputDialog(" частотах");
+                    dialog.setTitle("Пожалуйста уточните");
+                    dialog.setHeaderText("На каких именно каналах нет вещания?");
+                    dialog.setContentText("Нет вещания на:");
+
+// Traditional way to get the response value.
+                    Optional<String> result = dialog.showAndWait();
+                    String ch = "";
+                    if (result.isPresent()) {
+                        ch = result.get();
+                    }
+
+//                    // Create the custom dialog.
+//                    Dialog<Pair<String, String>> dialog2 = new Dialog<>();
+//                    dialog.setTitle("Login Dialog");
+//                    dialog.setHeaderText("Look, a Custom Login Dialog");
+//
+//// Set the button types.
+//                    ButtonType loginButtonType = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+//                    dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//
+//// Create the username and password labels and fields.
+//                    GridPane grid = new GridPane();
+//                    grid.setHgap(10);
+//                    grid.setVgap(10);
+//                    grid.setPadding(new Insets(20, 150, 10, 10));
+//
+//                    TextField username = new TextField();
+//                    username.setPromptText("Username");
+//                    PasswordField password = new PasswordField();
+//                    password.setPromptText("Password");
+//
+//                    grid.add(new Label("Username:"), 0, 0);
+//                    grid.add(username, 1, 0);
+//                    grid.add(new Label("Password:"), 0, 1);
+//                    grid.add(password, 1, 1);
+//
+//// Enable/Disable login button depending on whether a username was entered.
+//                    Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+//                    loginButton.setDisable(true);
+//
+//// Do some validation (using the Java 8 lambda syntax).
+//                    username.textProperty().addListener((observable, oldValue, newValue) -> {
+//                        loginButton.setDisable(newValue.trim().isEmpty());
+//                    });
+//
+//                    dialog.getDialogPane().setContent(grid);
+//
+//// Request focus on the username field by default.
+//                    Platform.runLater(() -> username.requestFocus());
+//
+//// Convert the result to a username-password-pair when the login button is clicked.
+//                    dialog.setResultConverter(dialogButton -> {
+//                        if (dialogButton == loginButtonType) {
+//                            return new Pair<>(username.getText(), password.getText());
+//                        }
+//                        return null;
+//                    });
+//
+//                    Optional<Pair<String, String>> result = dialog.showAndWait();
+//
+//                    result.ifPresent(usernamePassword -> {
+//                        System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
+//                    });
+
+// The Java 8 way to get the response value (with lambda expression).
+
+                    reqest = reqest + "Нет вещания на " + ch + " каналах. ";
+                }
+            }
+
         } else if (tabPhone.isSelected()) {
             textReqest.setText("Телефония");
         }
@@ -830,10 +1033,7 @@ public class Controller
             } else if (podklychenieCabelya.isSelected()) {
                 reqest = reqest + "Подключение кабеля проверено, повреждений нет. ";
             }
-            if (udobnoeVremya.isSelected()) {
-                reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
-                        + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
-            }
+
         }
         textReqest.setWrapText(true);
         textReqest.setText(reqest);
