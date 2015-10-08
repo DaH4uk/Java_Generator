@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <GridPane alignment="center" hgap="10" prefHeight="600.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
@@ -614,37 +612,42 @@
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                 <CheckBox fx:id="chkCamInsered" disable="true" mnemonicParsing="false"
-                                                           text="Доставали, вставляли обратно"/>
-                                                <Label>
-                                                   <font>
-                                                      <Font size="2.0" />
-                                                   </font>
-                                                </Label>
                                                  <CheckBox fx:id="chkCamChannelsResearched" disable="true"
                                                            mnemonicParsing="false" text="Каналы пересканировали"/>
-                                                <Label />
-                                                <CheckBox mnemonicParsing="false" text="Карту доставали, вставляли обратно" />
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Подписку обновляли" />
+                                                 <CheckBox fx:id="chkCamInsered" disable="true" mnemonicParsing="false"
+                                                           text="Доставали, вставляли обратно"/>
+                                                <Label />
+                                                 <CheckBox fx:id="chkCardInsered" mnemonicParsing="false"
+                                                           text="Карту доставали, вставляли обратно"/>
+                                                <Label>
+                                                   <font>
+                                                      <Font size="2.0" />
+                                                   </font>
+                                                </Label>
+                                                 <CheckBox fx:id="chkSubscription" mnemonicParsing="false"
+                                                           text="Подписку обновляли"/>
                                              </children>
                                           </VBox>
                                           <VBox layoutX="190.0" layoutY="210.0" prefHeight="49.0" prefWidth="271.0">
                                              <children>
-                                                <CheckBox mnemonicParsing="false" text="Подозрение на неисправность" />
+                                                 <CheckBox fx:id="chkFaulty" mnemonicParsing="false"
+                                                           text="Подозрение на неисправность"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Замена при необходимости" />
+                                                 <CheckBox fx:id="chkReplacement" mnemonicParsing="false"
+                                                           text="Замена при необходимости"/>
                                              </children>
                                           </VBox>
-                                          <CheckBox layoutX="15.0" layoutY="234.0" mnemonicParsing="false" text="Проверить линию КТВ" />
+                                           <CheckBox fx:id="chkCheckKTV" layoutX="15.0" layoutY="234.0"
+                                                     mnemonicParsing="false" text="Проверить линию КТВ"/>
                                        </children></AnchorPane>
                                  </content>
                               </Tab>
@@ -655,8 +658,8 @@
                                           <VBox layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="131.0">
                                              <children>
                                                  <CheckBox fx:id="ktvQalityOfSignal" mnemonicParsing="false"
-                                                           onAction="#KtvQalityOfSignalClicked"
-                                                           text="Качество сигнала:"/>
+                                                           onAction="#KtvQalityOfSignalClicked" text="Качество сигнала:"
+                                                           underline="true"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="4.0" />
@@ -682,7 +685,8 @@
                                           <VBox layoutX="210.0" layoutY="14.0" prefHeight="86.0" prefWidth="159.0">
                                              <children>
                                                  <CheckBox fx:id="ktvNoSignal" mnemonicParsing="false"
-                                                           onAction="#KtvNoSignalClicked" text="Нет сигнала"/>
+                                                           onAction="#KtvNoSignalClicked" text="Нет сигнала"
+                                                           underline="true"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="4.0" />
@@ -705,6 +709,19 @@
                                                               toggleGroup="$ctvNoSignalRadioBtn"/>
                                              </children>
                                           </VBox>
+                                           <VBox layoutX="14.0" layoutY="128.0" prefHeight="102.0" prefWidth="140.0">
+                                               <children>
+                                                   <Label text="Что проверить?" underline="true"/>
+                                                   <CheckBox fx:id="chkCabelContinuity" mnemonicParsing="false"
+                                                             prefHeight="25.0" prefWidth="132.0"
+                                                             text="Целостность кабеля"/>
+                                                   <CheckBox fx:id="chkCheckLevelSignal" layoutX="10.0" layoutY="27.0"
+                                                             mnemonicParsing="false" prefHeight="23.0" prefWidth="114.0"
+                                                             text="Уровень сигнала"/>
+                                             </children>
+                                          </VBox>
+                                           <CheckBox fx:id="chkChannelsResearcheded" layoutX="214.0" layoutY="128.0"
+                                                     mnemonicParsing="false" text="Каналы пересканировали"/>
                                        </children></AnchorPane>
                                  </content>
                               </Tab>
@@ -757,7 +774,9 @@
                                           </HBox>
                                            <Label layoutX="189.0" layoutY="6.0" text="Mак-адрес виден?"
                                                   underline="true"/>
-                                          <CheckBox layoutX="14.0" layoutY="195.0" mnemonicParsing="false" text="Адаптер перезагружали" underline="true" />
+                                           <CheckBox fx:id="chkAdapterReboted" layoutX="14.0" layoutY="195.0"
+                                                     mnemonicParsing="false" text="Адаптер перезагружали"
+                                                     underline="true"/>
                                           <Label layoutX="123.0" layoutY="105.0" prefHeight="10.0" prefWidth="251.0" text="Заявки по разрывам формируются в разделе" />
                                           <Label layoutX="123.0" layoutY="122.0" text="Интернет -&gt; Разрывы -&gt; Разрывы на ГН" />
                                        </children></AnchorPane>
@@ -832,7 +851,8 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="385.0" layoutY="36.0" prefHeight="25.0" prefWidth="66.0" />
+                                           <TextField fx:id="txtMoroMoro" layoutX="385.0" layoutY="36.0"
+                                                      prefHeight="25.0" prefWidth="66.0"/>
                                            <CheckBox fx:id="chkWithSpecificNumber" layoutX="14.0" layoutY="76.0"
                                                      mnemonicParsing="false" onAction="#WithSpecificNumberClicked"
                                                      text="С конкретным номером:" underline="true"/>
@@ -1092,7 +1112,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="43.0" layoutY="3.0" prefHeight="9.0" prefWidth="81.0">
+                         <TextField fx:id="txtGNum" layoutX="43.0" layoutY="3.0" prefHeight="9.0" prefWidth="81.0">
                            <font>
                               <Font size="10.0" />
                            </font>

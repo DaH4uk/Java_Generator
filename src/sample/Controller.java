@@ -1,21 +1,9 @@
 package sample;
 
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 
@@ -394,6 +382,11 @@ public class Controller
     public CheckBox chkNoBrodcastOnSomeChannels;
     public CheckBox chkDontOpenPortal;
     public CheckBox chkNoSound;
+    public CheckBox chkCardInsered;
+    public CheckBox chkSubscription;
+    public CheckBox chkFaulty;
+    public CheckBox chkReplacement;
+    public CheckBox chkCheckKTV;
 
     public void WhatHappeningClicked() {
         if (chkSpillageImage.isSelected() || chkFadingImage.isSelected() || chkBroadcastingInterruption.isSelected()
@@ -422,11 +415,15 @@ public class Controller
             chkDecoderRebootet.setDisable(false);
             chkCamInsered.setDisable(true);
             chkCamChannelsResearched.setDisable(true);
+            chkCamChannelsResearched.setSelected(false);
+            chkCamInsered.setSelected(false);
         } else {
             chkDecoderRestarted.setDisable(true);
             chkDecoderRebootet.setDisable(true);
             chkCamInsered.setDisable(false);
             chkCamChannelsResearched.setDisable(false);
+            chkDecoderRestarted.setSelected(false);
+            chkDecoderRebootet.setSelected(false);
         }
     }
 
@@ -448,6 +445,9 @@ public class Controller
     public CheckBox ktvNoSound;
     public CheckBox ktvBlackAndWhiteImage;
     public CheckBox ktvNoSignal;
+    public CheckBox chkCheckLevelSignal;
+    public CheckBox chkCabelContinuity;
+    public CheckBox chkChannelsResearcheded;
     public RadioButton ktvNoSignalAll;
     public RadioButton ktvNoSignalOnSome;
 
@@ -482,11 +482,13 @@ public class Controller
     public RadioButton radioPhoneOperStatUp;
     public RadioButton radioPhoneMacVisiableNo;
     public RadioButton radioPhoneMacVisiableYes;
+    public TextField txtGNum;
 
     public void PhoneNoSessionOperStatClicked() {
         if (radioPhoneOperStatDown.isSelected()) {
             radioPhoneMacVisiableNo.setDisable(true);
             radioPhoneMacVisiableYes.setDisable(true);
+            radioPhoneMacVisiableNo.setSelected(true);
         } else {
             radioPhoneMacVisiableNo.setDisable(false);
             radioPhoneMacVisiableYes.setDisable(false);
@@ -578,6 +580,7 @@ public class Controller
     //-----------------------------------------------------------------------------------------------
     //Tab ConnectionQality:
     public CheckBox chkLossToSwitch;
+    public CheckBox chkAdapterReboted;
     public CheckBox chkErrorsForPort;
     public CheckBox chkLossToGateway;
     public CheckBox chkSignalAmplification;
@@ -637,6 +640,7 @@ public class Controller
     public TextField txtfieldSimplesOfNumber;
     public TextField txtfieldDetectedNumber;
     public TextField txtfieldNumberSimpleses;
+    public TextField txtMoroMoro;
 
     public void AonClicked() {
         if (chkAon.isSelected()) {
@@ -683,6 +687,10 @@ public class Controller
 
         if (tabInternet.isSelected() || tabTV.isSelected() || tabPhone.isSelected()) {
             try {
+                if (udobnoeVremya.isSelected() && !szWithoutGraffic.isSelected())
+                    reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+
             if (szWithoutGraffic.isSelected()) {
                 reqest = reqest + "ВЫСОКИЙ ПРИОРИТЕТ! ";
                 if (udobnoeVremya.isSelected()) {
@@ -929,6 +937,14 @@ public class Controller
             //logic for create requests on the Дом.руТВ tab:
             if (tabCktv.isSelected()) {
                 reqest = reqest + "ЦКТВ. ";
+
+                if (chkFaulty.isSelected() && radioCKTVDecoder.isSelected()) {
+                    reqest = reqest + "Подозрение на неиправность декодера. ";
+                } else if (chkFaulty.isSelected() && radioCamModule.isSelected()) {
+                    reqest = reqest + "Подозрение на неиправность Cam-модуля. ";
+                }
+
+
                 if (chkSpillageImage.isSelected()) {
                     if (chkSpillageImage.isSelected() && chkFadingImage.isSelected()) {
                         reqest = reqest + "Наблюдается рассыпание, замирание изображения. ";
@@ -963,12 +979,234 @@ public class Controller
 
 // The Java 8 way to get the response value (with lambda expression).
 
-                    reqest = reqest + "Нет вещания на " + ch + " . ";
+                    reqest = reqest + "Нет вещания на " + ch + ". ";
+                }
+
+                if (chkDontOpenPortal.isSelected()) {
+                    reqest = reqest + "Не открывается портал. ";
+                }
+
+                if (chkNoSound.isSelected()) {
+                    TextInputDialog dialog = new TextInputDialog(" каналах");
+                    dialog.setTitle("Пожалуйста уточните");
+                    dialog.setHeaderText("На каких каналах нет звука?");
+                    dialog.setContentText("Нет звука на:");
+
+                    Optional<String> result = dialog.showAndWait();
+                    String so = "";
+                    if (result.isPresent()) {
+                        so = result.get();
+                    }
+
+                    reqest = reqest + "Нет звука на " + so + ". ";
+                }
+
+                if (radioCKTVDecoder.isSelected()) {
+                    if (chkDecoderRestarted.isSelected() && chkDecoderRebootet.isSelected()) {
+                        reqest = reqest + "Декодер перезагружали, сбрасывали, перенастраивали. ";
+                    } else {
+                        if (chkDecoderRestarted.isSelected()) {
+                            reqest = reqest + "Декодер перезагружали. ";
+                        }
+                        if (chkDecoderRebootet.isSelected()) {
+                            reqest = reqest + "Декодер сбрасывали, перенастраивали. ";
+                        }
+                    }
+                }
+                if (radioCamModule.isSelected()) {
+                    if (chkCamChannelsResearched.isSelected()) {
+                        reqest = reqest + "Каналы пересканировали. ";
+                    }
+                    if (chkCamInsered.isSelected()) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Уточните пожалуста.");
+                        alert.setHeaderText("Как вставлен Cam-модуль?");
+                        alert.setContentText("Обычно логотипом к стене.");
+
+                        ButtonType buttonTypeOne = new ButtonType("Логотипом к стене");
+                        ButtonType buttonTypeTwo = new ButtonType("Логотипом к экрану");
+                        ButtonType buttonTypeCancel = new ButtonType("Отмена", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+                        String ss = "";
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == buttonTypeOne) {
+                            // ... user chose "One"
+                            ss = "логотипом к стене. ";
+                        } else if (result.get() == buttonTypeTwo) {
+                            // ... user chose "Two"
+                            ss = "логотипом к дисплею. ";
+                        } else {
+                            // ... user chose CANCEL or closed the dialog
+                            ss = "верно. ";
+                        }
+                        reqest = reqest + "Сам-модуль достали, вставили " + ss;
+                    }
+
+                }
+                if (chkCardInsered.isSelected()) {
+                    reqest = reqest + "Карту достали, вставили верно. ";
+                }
+                if (chkSubscription.isSelected()) {
+                    reqest = reqest + "Данные по подписке обновили. ";
+                }
+
+                if (ctvShowChk.isSelected() && ctvShowBtnYes.isSelected()) {
+                    reqest = reqest + "КТВ показывает. ";
+                } else if (ctvShowChk.isSelected() && ctvShowBtnNo.isSelected()) {
+                    reqest = reqest + "КТВ не показывает. ";
+                }
+
+                if (chkFaulty.isSelected() && radioCKTVDecoder.isSelected()) {
+                    if (chkReplacement.isSelected()) {
+                        reqest = reqest + "Требуется проверить декодер на работоспособность и при необходимости заменить. ";
+                    } else {
+                        reqest = reqest + "Требуется проверить декодер на работоспособность. ";
+                    }
+
+                } else if (chkFaulty.isSelected() && radioCamModule.isSelected()) {
+                    if (chkReplacement.isSelected()) {
+                        reqest = reqest + "Требуется проверить Cam-модуль на работоспособность и при необходимости заменить. ";
+                    } else {
+                        reqest = reqest + "Требуется проверить Cam-модуль на работоспособность. ";
+                    }
+                }
+                if (chkCheckKTV.isSelected()) {
+                    reqest = reqest + "Требуется проверить линию КТВ. ";
+                }
+
+
+            } else if (tabKTV.isSelected()) {
+                if (ktvQalityOfSignal.isSelected()) {
+                    String sbd = "";
+                    if (ktvInterferencel.isSelected()) {
+                        sbd = sbd + "Помехи/рябь. ";
+                    }
+                    if (ktvNoSound.isSelected()) {
+                        sbd = sbd + "Нет звука. ";
+                    }
+                    if (ktvBlackAndWhiteImage.isSelected()) {
+                        sbd = sbd + "Ч/Б изображение. ";
+                    }
+                    reqest = reqest + "Клиента не устраивает качество сигнала (" + sbd + "). ";
+
+                }
+                if (ktvNoSignal.isSelected()) {
+                    reqest = reqest + "Нет сигнала на ";
+                    if (ktvNoSignalAll.isSelected()) {
+                        reqest = reqest + "всех каналах. ";
+                    } else {
+
+                        TextInputDialog dialog = new TextInputDialog("");
+                        dialog.setTitle("Пожалуйста уточните");
+                        dialog.setHeaderText("На каких именно каналах нет вещания?");
+                        dialog.setContentText("Нет вещания на:");
+
+// Traditional way to get the response value.
+                        Optional<String> result = dialog.showAndWait();
+                        String ch = "";
+                        if (result.isPresent()) {
+                            ch = result.get();
+                        }
+
+// The Java 8 way to get the response value (with lambda expression).
+
+                        reqest = reqest + ch + " каналах. ";
+                    }
+                }
+
+                if (chkChannelsResearcheded.isSelected()) {
+                    reqest = reqest + "Каналы пересканировали. ";
+                }
+
+                if (chkCabelContinuity.isSelected() && chkCheckLevelSignal.isSelected()) {
+                    reqest = reqest + "Требуется проверить целостность кабеля и уровень сигнала. ";
+                } else if (chkCabelContinuity.isSelected()) {
+                    reqest = reqest + "Требуется проверить целостность кабеля. ";
+                } else if (chkCheckLevelSignal.isSelected()) {
+                    reqest = reqest + "Требуется проверить уровень сигнала. ";
                 }
             }
 
         } else if (tabPhone.isSelected()) {
-            textReqest.setText("Телефония");
+            reqest = reqest + "ГН: " + txtGNum.getText() + ". ";
+            if (tabPhone.isSelected()) {
+                reqest = reqest + "Адаптер не устанавливает сессию. ";
+
+                if (radioPhoneOperStatUp.isSelected()) {
+                    reqest = reqest + "Линк есть. ";
+                } else {
+                    reqest = reqest + "За портом клиента нет линка. ";
+                }
+                if (radioPhoneMacVisiableNo.isSelected()) {
+                    reqest = reqest + "Мак-адрес не виден. ";
+                } else {
+                    reqest = reqest + "Мак-адрес виден. ";
+                }
+
+                if (chkAdapterReboted.isSelected()) {
+                    reqest = reqest + "Адаптер перезагружали. ";
+                }
+            }
+            if (tabIncOut.isSelected()) {
+                if (chkNoIncConnection.isSelected() && chkNoOutConnection.isSelected()) {
+                    if (chkWithSpecificNumber.isSelected()) {
+                        reqest = reqest + "Отсутствует входящая и исходящая связь с номером: " + txtfieldWithSpecificNumber.getText() + ". ";
+                        if (radioBeepInHandsetYes.isSelected()) {
+                            reqest = reqest + "Гудок в трубке есть. ";
+                        } else {
+                            reqest = reqest + "Гудка в трубке нет. ";
+                        }
+                    } else {
+                        reqest = reqest + "Отсутствует входящая и исходящая связь. ";
+                        if (radioBeepInHandsetYes.isSelected()) {
+                            reqest = reqest + "Гудок в трубке есть. ";
+                        } else {
+                            reqest = reqest + "Гудка в трубке нет. ";
+                        }
+                    }
+
+
+                } else if (chkNoIncConnection.isSelected()) {
+
+
+                    ///////////////////////////////////////////////
+                    reqest = reqest + "Отсутствует входящая связь. ";
+                    if (radioNumberMatch.isSelected()) {
+                        reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, совпадают. ";
+                    } else {
+                        reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, не совпадают. ";
+                    }
+                } else {
+                    if (chkNoOutConnection.isSelected()) {
+                        reqest = reqest + "Отсутствует исходящая связь. ";
+                    }
+                }
+
+                if (chkSipRegistration.isSelected()) {
+                    if (radioSipRegistrationYes.isSelected())
+                        reqest = reqest + "SIP-регистрация проходит. ";
+                    else
+                        reqest = reqest + "SIP-регистрация не проходит. ";
+                }
+
+                if (chkCallFromOffice.isSelected()) {
+                    if (radioCallFromOfficeYes.isSelected())
+                        reqest = reqest + "Звонок из офиса проходит. ";
+                    else
+                        reqest = reqest + "Звонок из офиса так же не проходит. ";
+                }
+
+                if (chkNoOutConnection.isSelected()) {
+                    if (!txtMoroMoro.getText().equals("")) {
+                        reqest = reqest + "При проверке через Moro-Moro код ошибки: " + txtMoroMoro.getText() + ". ";
+                    }
+                }
+
+
+            }
+
+
         }
         if (tabInternet.isSelected() || tabTV.isSelected() || tabPhone.isSelected()) {
             if (clientConflict.isSelected()) {
