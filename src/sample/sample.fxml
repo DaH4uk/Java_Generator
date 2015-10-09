@@ -119,10 +119,9 @@
                                                                  mnemonicParsing="false"
                                                                  onAction="#NoSessionsOfNeighborsClicked"
                                                                  prefHeight="20.0" prefWidth="235.0"
-                                                                 text="Нет сессий соседей" visible="false"/>
+                                                                 text="Нет сессий соседей"/>
                                                        <CheckBox fx:id="chkMagistralPortNo" mnemonicParsing="false"
-                                                                 prefHeight="20.0" text="Магистральный порт NO"
-                                                                 visible="false"/>
+                                                                 prefHeight="20.0" text="Магистральный порт NO"/>
                                                    </children>
                                                 </HBox>
                                                 <Label>
@@ -786,9 +785,9 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                           <CheckBox layoutX="13.0" layoutY="204.0" mnemonicParsing="false"
-                                                     prefHeight="17.0" prefWidth="157.0" text="Адаптер перезагружали"
-                                                     underline="true"/>
+                                           <CheckBox fx:id="chkAdapterReboteded" layoutX="13.0" layoutY="204.0"
+                                                     mnemonicParsing="false" prefHeight="17.0" prefWidth="157.0"
+                                                     text="Адаптер перезагружали" underline="true"/>
                                           <VBox layoutX="14.0" layoutY="29.0" prefHeight="37.0" prefWidth="100.0">
                                              <children>
                                                  <CheckBox fx:id="chkNoIncConnection" mnemonicParsing="false"
@@ -869,8 +868,10 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Label>
-                                          <TextArea layoutX="288.0" layoutY="111.0" prefHeight="68.0" prefWidth="66.0" />
-                                          <TextArea layoutX="363.0" layoutY="111.0" prefHeight="68.0" prefWidth="66.0" />
+                                           <TextArea fx:id="txtSamplesIncNumbers" disable="true" layoutX="288.0"
+                                                     layoutY="111.0" prefHeight="68.0" prefWidth="66.0"/>
+                                           <TextArea fx:id="txtSamplesOutNumbers" disable="true" layoutX="363.0"
+                                                     layoutY="111.0" prefHeight="68.0" prefWidth="66.0"/>
                                           <Label layoutX="14.0" layoutY="105.0" text="Номер в приложении и в адаптере:" underline="true" />
                                           <HBox layoutX="13.0" layoutY="125.0" prefHeight="24.0" prefWidth="200.0">
                                              <children>
@@ -926,79 +927,69 @@
                                           <Label layoutX="14.0" layoutY="6.0" text="Характер сложности:" underline="true" />
                                           <VBox layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="146.0">
                                              <children>
-                                                <RadioButton mnemonicParsing="false" text="Шум, треск и тд..." />
+                                                 <RadioButton fx:id="radioCharacterTresk" mnemonicParsing="false"
+                                                              selected="true" text="Шум, треск и тд...">
+                                                     <toggleGroup>
+                                                         <ToggleGroup fx:id="gnDiffChar"/>
+                                                     </toggleGroup>
+                                                 </RadioButton>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <RadioButton mnemonicParsing="false" text="Низкий ур. громкости" />
+                                                 <RadioButton fx:id="radioCharacterLowVoliume" mnemonicParsing="false"
+                                                              text="Низкий ур. громкости" toggleGroup="$gnDiffChar"/>
                                              </children>
                                           </VBox>
                                           <Label layoutX="160.0" layoutY="6.0" text="Направление:" underline="true" />
                                           <VBox layoutX="160.0" layoutY="23.0" prefHeight="38.0" prefWidth="89.0">
                                              <children>
-                                                <CheckBox mnemonicParsing="false" text="Входящая" />
+                                                 <CheckBox fx:id="chkIncNapr" mnemonicParsing="false"
+                                                           onAction="#NapravlenieClicked" text="Входящая"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Исходящая" />
+                                                 <CheckBox fx:id="chkOutNapr" mnemonicParsing="false"
+                                                           onAction="#NapravlenieClicked" text="Исходящая"/>
                                              </children>
                                           </VBox>
                                           <Label layoutX="250.0" layoutY="6.0" text="Кто слышит?" underline="true" />
                                           <VBox layoutX="250.0" layoutY="23.0" prefHeight="38.0" prefWidth="89.0">
                                              <children>
-                                                <CheckBox mnemonicParsing="false" text="Клиент" />
+                                                 <CheckBox fx:id="chkWhoHerarsClient" mnemonicParsing="false"
+                                                           text="Клиент"/>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <CheckBox mnemonicParsing="false" text="Собеседник" />
+                                                 <CheckBox fx:id="chkWhoHerarsSob" mnemonicParsing="false"
+                                                           text="Собеседник"/>
                                              </children>
                                           </VBox>
                                           <Label layoutX="339.0" layoutY="6.0" text="Другой ТА?" underline="true" />
                                           <VBox layoutX="339.0" layoutY="23.0" prefHeight="38.0" prefWidth="146.0">
                                              <children>
-                                                <RadioButton mnemonicParsing="false" text="Нет" />
+                                                 <RadioButton fx:id="radioOtherTAAYes" mnemonicParsing="false"
+                                                              selected="true" text="Нет">
+                                                     <toggleGroup>
+                                                         <ToggleGroup fx:id="otherTA"/>
+                                                     </toggleGroup>
+                                                 </RadioButton>
                                                 <Label>
                                                    <font>
                                                       <Font size="2.0" />
                                                    </font>
                                                 </Label>
-                                                <RadioButton mnemonicParsing="false" text="Да" />
+                                                 <RadioButton fx:id="radioOtherTAANo" mnemonicParsing="false" text="Да"
+                                                              toggleGroup="$otherTA"/>
                                              </children>
                                           </VBox>
-                                           <VBox layoutX="14.0" layoutY="70.0" prefHeight="151.0" prefWidth="257.0">
+                                           <VBox layoutX="14.0" layoutY="70.0" prefHeight="150.0" prefWidth="257.0">
                                              <children>
-                                                <HBox prefHeight="13.0" prefWidth="233.0">
-                                                   <children>
-                                                       <CheckBox fx:id="chkLossToSwitch" mnemonicParsing="false"
-                                                                 onAction="#LossToSwitchClicked" prefHeight="17.0"
-                                                                 prefWidth="187.0" text="Потери до коммутатора (%)"/>
-                                                       <TextField fx:id="txtfieldLossToSwitch" disable="true"
-                                                                  prefHeight="13.0" prefWidth="66.0">
-                                                           <font>
-                                                               <Font size="10.0"/>
-                                                           </font>
-                                                       </TextField>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="13.0" prefWidth="233.0">
-                                                   <children>
-                                                       <CheckBox fx:id="chkErrorsForPort" mnemonicParsing="false"
-                                                                 onAction="#ErrorsForPortClicked" prefHeight="17.0"
-                                                                 prefWidth="187.0" text="Ошибки за портом"/>
-                                                       <TextField fx:id="txtfieldErrorsForPort" disable="true"
-                                                                  prefHeight="25.0" prefWidth="66.0">
-                                                           <font>
-                                                               <Font size="10.0"/>
-                                                           </font>
-                                                       </TextField>
-                                                   </children>
-                                                </HBox>
                                                 <HBox prefHeight="13.0" prefWidth="233.0">
                                                    <children>
                                                        <CheckBox fx:id="chkLossToGateway" mnemonicParsing="false"
@@ -1012,11 +1003,26 @@
                                                        </TextField>
                                                    </children>
                                                 </HBox>
-                                                <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="187.0" text="Адаптер перезагружали" underline="true" />
+                                                <HBox prefHeight="13.0" prefWidth="233.0">
+                                                   <children>
+                                                       <CheckBox fx:id="chkLossToSwitch" mnemonicParsing="false"
+                                                                 onAction="#LossToSwitchClicked" prefHeight="17.0"
+                                                                 prefWidth="187.0" text="Потери до коммутатора (%)"/>
+                                                       <TextField fx:id="txtfieldLossToSwitch" disable="true"
+                                                                  prefHeight="13.0" prefWidth="66.0" text="0">
+                                                           <font>
+                                                               <Font size="10.0"/>
+                                                           </font>
+                                                       </TextField>
+                                                   </children>
+                                                </HBox>
+                                                 <CheckBox fx:id="chkShluzRebooted" mnemonicParsing="false"
+                                                           prefHeight="17.0" prefWidth="187.0"
+                                                           text="Адаптер перезагружали" underline="true"/>
                                                  <CheckBox fx:id="chkSignalAmplification" mnemonicParsing="false"
                                                            onAction="#SignalAmplificationClicked" prefHeight="31.0"
                                                            prefWidth="187.0" text="Усиление сигнала на выходе"/>
-                                                <HBox prefHeight="13.0" prefWidth="257.0">
+                                                 <HBox prefHeight="28.0" prefWidth="257.0">
                                                    <children>
                                                        <RadioButton fx:id="radioSignalAmplificationUp" disable="true"
                                                                     mnemonicParsing="false" prefHeight="17.0"
@@ -1031,10 +1037,25 @@
                                                                     toggleGroup="$gnQalityLvlSignalRadio"/>
                                                    </children>
                                                 </HBox>
+                                                 <HBox prefHeight="29.0" prefWidth="257.0">
+                                                     <children>
+                                                         <CheckBox fx:id="chkErrorsForPort" mnemonicParsing="false"
+                                                                   onAction="#ErrorsForPortClicked" prefHeight="25.0"
+                                                                   prefWidth="187.0" text="Ошибки за портом"/>
+                                                         <TextField fx:id="txtfieldErrorsForPort" disable="true"
+                                                                    prefHeight="25.0" prefWidth="66.0" text="0">
+                                                             <font>
+                                                                 <Font size="10.0"/>
+                                                             </font>
+                                                         </TextField>
+                                                     </children>
+                                                 </HBox>
                                              </children>
                                           </VBox>
-                                          <TextArea layoutX="296.0" layoutY="102.0" prefHeight="68.0" prefWidth="66.0" />
-                                          <TextArea layoutX="370.0" layoutY="102.0" prefHeight="68.0" prefWidth="66.0" />
+                                           <TextArea fx:id="txtAreaSamplesInc" disable="true" layoutX="296.0"
+                                                     layoutY="102.0" prefHeight="68.0" prefWidth="66.0"/>
+                                           <TextArea fx:id="txtAreaSamplesOut" disable="true" layoutX="370.0"
+                                                     layoutY="102.0" prefHeight="68.0" prefWidth="66.0"/>
                                           <Label layoutX="371.0" layoutY="87.0" text="Исходящие:">
                                              <font>
                                                 <Font size="10.0" />
@@ -1046,6 +1067,8 @@
                                              </font>
                                           </Label>
                                           <Label layoutX="295.0" layoutY="70.0" text="Примеры номеров:" underline="true" />
+                                           <CheckBox fx:id="chkErrorsRastut" disable="true" layoutX="293.0"
+                                                     layoutY="195.0" mnemonicParsing="false" text="Растут"/>
                                        </children></AnchorPane>
                                 </content>
                               </Tab>
@@ -1058,16 +1081,16 @@
                                           <VBox layoutX="14.0" layoutY="30.0" prefHeight="129.0" prefWidth="176.0">
                                              <children>
                                                  <RadioButton fx:id="radioAonNotWork" disable="true"
-                                                              mnemonicParsing="false" selected="true"
-                                                              text="Не срабатывает">
+                                                              mnemonicParsing="false" onAction="#NotCorrectClicked"
+                                                              selected="true" text="Не срабатывает">
                                                    <toggleGroup>
                                                       <ToggleGroup fx:id="gnAonRadio" />
                                                    </toggleGroup>
                                                 </RadioButton>
                                                  <RadioButton fx:id="radioAonIncorrectWork" disable="true"
-                                                              mnemonicParsing="false" prefHeight="30.0"
-                                                              prefWidth="167.0" text="Не корректно работает"
-                                                              toggleGroup="$gnAonRadio"/>
+                                                              mnemonicParsing="false" onAction="#NotCorrectClicked"
+                                                              prefHeight="30.0" prefWidth="167.0"
+                                                              text="Не корректно работает" toggleGroup="$gnAonRadio"/>
                                                  <Label fx:id="lableSimplesOfNumber" disable="true"
                                                         text="Примеры номеров:"/>
                                                  <TextField fx:id="txtfieldSimplesOfNumber" disable="true"/>
@@ -1101,7 +1124,9 @@
                                                  <TextField fx:id="txtfieldNumberSimpleses" disable="true"/>
                                              </children>
                                           </VBox>
-                                          <CheckBox layoutX="14.0" layoutY="195.0" mnemonicParsing="false" text="Сбивается время на ТА" underline="true" />
+                                           <CheckBox fx:id="chkTime" layoutX="14.0" layoutY="195.0"
+                                                     mnemonicParsing="false" text="Сбивается время на ТА"
+                                                     underline="true"/>
                                        </children></AnchorPane>
                                 </content>
                               </Tab>
@@ -1189,7 +1214,8 @@
                            </children>
                         </VBox>
                         <Button layoutX="296.0" layoutY="30.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="95.0" text="Поиск" />
-                        <Hyperlink layoutX="363.0" layoutY="3.0" text="Test.exe: 212.33.255.58" visited="true" />
+                         <Hyperlink layoutX="363.0" layoutY="3.0" onAction="#TextexeClicked"
+                                    text="Test.exe: 212.33.255.58" visited="true"/>
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -1230,9 +1256,9 @@
       </TabPane>
        <Pane prefHeight="30.0" prefWidth="500.0" GridPane.rowIndex="2">
          <children>
-             <Button layoutX="10.0" layoutY="-2.0" text="Очистить все"/>
-             <Button fx:id="copyBtn" layoutX="350.0" layoutY="-2.0" prefHeight="25.0" prefWidth="140.0"
-                     text="Копировать"/>
+             <Button layoutX="10.0" layoutY="-2.0" onAction="#ClearAllClicked" text="Очистить все"/>
+             <Button fx:id="copyBtn" layoutX="350.0" layoutY="-2.0" onAction="#CopyClicked" prefHeight="25.0"
+                     prefWidth="140.0" text="Копировать"/>
          </children>
       </Pane>
        <Pane cache="true" cacheHint="SPEED" focusTraversable="true" prefHeight="232.0" prefWidth="500.0"

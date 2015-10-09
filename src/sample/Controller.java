@@ -1,8 +1,18 @@
 package sample;
 
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -504,6 +514,7 @@ public class Controller
     public CheckBox chkSipRegistration;
     public CheckBox chkCallFromOffice;
     public CheckBox chkWithSpecificNumber;
+    public CheckBox chkAdapterReboteded;
     public CheckBox chkOtherTA;
     public RadioButton radioNumberMatch;
     public RadioButton radioNumberNoMatch;
@@ -516,6 +527,8 @@ public class Controller
     public RadioButton radioOtherTAYes;
     public RadioButton radioOtherTANo;
     public TextField txtfieldWithSpecificNumber;
+    public TextArea txtSamplesIncNumbers;
+    public TextArea txtSamplesOutNumbers;
 
     public void NoIncConnectionClicked() {
         if (chkNoIncConnection.isSelected() && !chkNoOutConnection.isSelected()) {
@@ -533,6 +546,18 @@ public class Controller
             radioNumberNoMatch.setDisable(true);
             radioBeepInHandsetYes.setDisable(true);
             radioBeepInHandsetNo.setDisable(true);
+        }
+        if (chkNoIncConnection.isSelected()) {
+            txtSamplesIncNumbers.setDisable(false);
+        } else {
+            txtSamplesIncNumbers.setDisable(true);
+            txtSamplesIncNumbers.setText("");
+        }
+        if (chkNoOutConnection.isSelected()) {
+            txtSamplesOutNumbers.setDisable(false);
+        } else {
+            txtSamplesOutNumbers.setDisable(true);
+            txtSamplesOutNumbers.setText("");
         }
     }
 
@@ -584,12 +609,39 @@ public class Controller
     public CheckBox chkErrorsForPort;
     public CheckBox chkLossToGateway;
     public CheckBox chkSignalAmplification;
+    public CheckBox chkOutNapr;
+    public CheckBox chkIncNapr;
+    public CheckBox chkWhoHerarsClient;
+    public CheckBox chkWhoHerarsSob;
+    public CheckBox chkShluzRebooted;
+    public CheckBox chkErrorsRastut;
     public TextField txtfieldLossToSwitch;
     public TextField txtfieldErrorsForPort;
     public TextField txtfieldLossToGateway;
     public RadioButton radioSignalAmplificationUp;
     public RadioButton radioSignalAmplificationDown;
+    public RadioButton radioCharacterTresk;
+    public RadioButton radioCharacterLowVoliume;
+    public RadioButton radioOtherTAAYes;
+    public RadioButton radioOtherTAANo;
+    public TextArea txtAreaSamplesInc;
+    public TextArea txtAreaSamplesOut;
 
+    public void NapravlenieClicked() {
+        if (chkIncNapr.isSelected()) {
+            txtAreaSamplesInc.setDisable(false);
+        } else {
+            txtAreaSamplesInc.setDisable(true);
+            txtAreaSamplesInc.setText("");
+        }
+        if (chkOutNapr.isSelected()) {
+            txtAreaSamplesOut.setDisable(false);
+        } else {
+            txtAreaSamplesOut.setDisable(true);
+            txtAreaSamplesOut.setText("");
+
+        }
+    }
     public void LossToSwitchClicked() {
         if (chkLossToSwitch.isSelected()) {
             txtfieldLossToSwitch.setDisable(false);
@@ -601,8 +653,10 @@ public class Controller
     public void ErrorsForPortClicked() {
         if (chkErrorsForPort.isSelected()) {
             txtfieldErrorsForPort.setDisable(false);
+            chkErrorsRastut.setDisable(false);
         } else {
             txtfieldErrorsForPort.setDisable(true);
+            chkErrorsRastut.setDisable(true);
         }
     }
 
@@ -628,6 +682,7 @@ public class Controller
     //Tab IVR,AON...:
     public CheckBox chkAon;
     public CheckBox chkIVR;
+    public CheckBox chkTime;
     public RadioButton radioAonNotWork;
     public RadioButton radioAonIncorrectWork;
     public RadioButton radioThrough7;
@@ -646,20 +701,27 @@ public class Controller
         if (chkAon.isSelected()) {
             radioAonNotWork.setDisable(false);
             radioAonIncorrectWork.setDisable(false);
-            lableSimplesOfNumber.setDisable(false);
-            lableDetectedNumber.setDisable(false);
-            txtfieldSimplesOfNumber.setDisable(false);
-            txtfieldDetectedNumber.setDisable(false);
         } else {
             radioAonNotWork.setDisable(true);
             radioAonIncorrectWork.setDisable(true);
-            lableSimplesOfNumber.setDisable(true);
-            lableDetectedNumber.setDisable(true);
-            txtfieldSimplesOfNumber.setDisable(true);
-            txtfieldDetectedNumber.setDisable(true);
+            radioAonNotWork.setSelected(true);
+
         }
     }
 
+    public void NotCorrectClicked() {
+        if (radioAonIncorrectWork.isSelected()) {
+            lableSimplesOfNumber.setDisable(false);
+            txtfieldSimplesOfNumber.setDisable(false);
+            lableDetectedNumber.setDisable(false);
+            txtfieldDetectedNumber.setDisable(false);
+        } else {
+            lableSimplesOfNumber.setDisable(true);
+            txtfieldSimplesOfNumber.setDisable(true);
+            lableDetectedNumber.setDisable(true);
+            txtfieldDetectedNumber.setDisable(true);
+        }
+    }
     public void IVRClicked() {
         if (chkIVR.isSelected()) {
             labelFormatOfNumber.setDisable(false);
@@ -751,6 +813,10 @@ public class Controller
                     } else {
                         if (radioMacBelongsNo.isSelected()) {
                             reqest = reqest + "За портом Mac-адрес не клиента. ";
+                        } else if (chkNoSessionsOfNeighbors.isSelected() && chkMagistralPortNo.isSelected()) {
+                            reqest = reqest + "На коммутаторе нет сессий соседей. Магистральный порт NO. ";
+                        } else if (chkNoSessionsOfNeighbors.isSelected() && !chkMagistralPortNo.isSelected()) {
+                            reqest = reqest + "На коммутаторе нет сессий соседей. Магистральный порт определен. ";
                         }
                         if (radioCommutIsControlledNo.isSelected() && radioMacOfNeighborsNo.isSelected()) {
                             reqest = reqest + "Mac-адреса других клиентов не видны. ";
@@ -1130,7 +1196,7 @@ public class Controller
 
         } else if (tabPhone.isSelected()) {
             reqest = reqest + "ГН: " + txtGNum.getText() + ". ";
-            if (tabPhone.isSelected()) {
+            if (noSession.isSelected()) {
                 reqest = reqest + "Адаптер не устанавливает сессию. ";
 
                 if (radioPhoneOperStatUp.isSelected()) {
@@ -1147,8 +1213,7 @@ public class Controller
                 if (chkAdapterReboted.isSelected()) {
                     reqest = reqest + "Адаптер перезагружали. ";
                 }
-            }
-            if (tabIncOut.isSelected()) {
+            } else if (tabIncOut.isSelected()) {
                 if (chkNoIncConnection.isSelected() && chkNoOutConnection.isSelected()) {
                     if (chkWithSpecificNumber.isSelected()) {
                         reqest = reqest + "Отсутствует входящая и исходящая связь с номером: " + txtfieldWithSpecificNumber.getText() + ". ";
@@ -1171,16 +1236,32 @@ public class Controller
 
 
                     ///////////////////////////////////////////////
-                    reqest = reqest + "Отсутствует входящая связь. ";
-                    if (radioNumberMatch.isSelected()) {
-                        reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, совпадают. ";
+                    if (chkWithSpecificNumber.isSelected()) {
+                        reqest = reqest + "Отсутствует входящая связь с номером: " + txtfieldWithSpecificNumber.getText() + ". ";
+                        if (radioNumberMatch.isSelected()) {
+                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, совпадают. ";
+                        } else {
+                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, не совпадают. ";
+                        }
                     } else {
-                        reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, не совпадают. ";
+                        reqest = reqest + "Отсутствует входящая связь. ";
+                        if (radioNumberMatch.isSelected()) {
+                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, совпадают. ";
+                        } else {
+                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, не совпадают. ";
+                        }
                     }
-                } else {
-                    if (chkNoOutConnection.isSelected()) {
+                } else if (chkNoOutConnection.isSelected()) {
+                    if (chkWithSpecificNumber.isSelected()) {
+                        reqest = reqest + "Отсутствует исходящая связь с номером: " + txtfieldWithSpecificNumber.getText() + ". ";
+                    } else
                         reqest = reqest + "Отсутствует исходящая связь. ";
                     }
+
+
+                ///////
+                if (chkAdapterReboteded.isSelected()) {
+                    reqest = reqest + "Адаптер перезагружали. ";
                 }
 
                 if (chkSipRegistration.isSelected()) {
@@ -1197,13 +1278,131 @@ public class Controller
                         reqest = reqest + "Звонок из офиса так же не проходит. ";
                 }
 
+                if (chkOtherTA.isSelected()) {
+                    if (radioOtherTAYes.isSelected()) {
+                        reqest = reqest + "С другого ТА сложность так же сохраняется. ";
+                    } else {
+                        reqest = reqest + "Другим ТА нет возможности проверить. ";
+                    }
+                }
+
                 if (chkNoOutConnection.isSelected()) {
                     if (!txtMoroMoro.getText().equals("")) {
                         reqest = reqest + "При проверке через Moro-Moro код ошибки: " + txtMoroMoro.getText() + ". ";
                     }
                 }
+                if (chkNoIncConnection.isSelected() && !txtSamplesIncNumbers.getText().equals("")) {
+                    reqest = reqest + "Примеры номеров, до которых клиенту не удалось дозвониться: " + txtSamplesIncNumbers.getText() + ". ";
+                }
+                if (chkNoOutConnection.isSelected() && !txtSamplesOutNumbers.getText().equals("")) {
+                    reqest = reqest + "Примеры номеров, на которые звонил клиент: " + txtSamplesOutNumbers.getText() + ". ";
+                }
+
+            } else if (tabQalityOfComm.isSelected()) {
+                if (radioCharacterTresk.isSelected()) {
+                    String trt = "";
+                    if (chkIncNapr.isSelected() && !chkOutNapr.isSelected()) {
+                        trt = " при входящей связи";
+                    } else if (!chkIncNapr.isSelected() && chkOutNapr.isSelected()) {
+                        trt = " при исходящей связи";
+                    } else if (chkIncNapr.isSelected() && chkOutNapr.isSelected()) {
+                        trt = " при входящей и исходящей связи";
+                    }
+                    reqest = reqest + "Посторонние шумы в трубке (треск, шум, т.п.)" + trt + ". ";
+                } else if (radioCharacterLowVoliume.isSelected()) {
+                    String trt = "";
+                    if (chkIncNapr.isSelected() && !chkOutNapr.isSelected()) {
+                        trt = " при входящей связи";
+                    } else if (!chkIncNapr.isSelected() && chkOutNapr.isSelected()) {
+                        trt = " при исходящей связи";
+                    } else if (chkIncNapr.isSelected() && chkOutNapr.isSelected()) {
+                        trt = " при входящей и исходящей связи";
+                    }
+                    reqest = reqest + "Тихая слышимость" + trt + ". ";
+                }
 
 
+                if (chkWhoHerarsClient.isSelected() && !chkWhoHerarsSob.isSelected()) {
+                    reqest = reqest + "Слышит только клиент. ";
+                } else if (!chkWhoHerarsClient.isSelected() && chkWhoHerarsSob.isSelected()) {
+                    reqest = reqest + "Слышит только собеседник клиента. ";
+                } else if (chkWhoHerarsClient.isSelected() && chkWhoHerarsSob.isSelected()) {
+                    reqest = reqest + "Слышит как клиент, так и его собеседник. ";
+                }
+                if (chkLossToGateway.isSelected() && !txtfieldLossToGateway.getText().equals("")) {
+                    reqest = reqest + "При опросе шлюза " + txtfieldLossToGateway.getText() + "% потерь. ";
+                } else {
+                    reqest = reqest + "При опросе шлюза потерь нет. ";
+                }
+                if (chkLossToSwitch.isSelected()) {
+                    if (txtfieldLossToSwitch.getText().equals("") || txtfieldLossToSwitch.getText().equals("0")) {
+                        reqest = reqest + "При опросе коммутатора потерь нет. ";
+                    } else {
+                        reqest = reqest + "При опросе коммутатора " + txtfieldLossToSwitch.getText() + "% потерь. ";
+                    }
+                }
+                if (chkErrorsForPort.isSelected()) {
+                    if (txtfieldErrorsForPort.getText().equals("") || txtfieldErrorsForPort.equals("0")) {
+                        reqest = reqest + "Ошибок за портом нет. ";
+                    } else {
+                        reqest = reqest + "Ошибок за портом: " + txtfieldErrorsForPort.getText() + ". ";
+                        if (chkErrorsRastut.isSelected()) {
+                            reqest = reqest + "Ошибки растут. ";
+                        }
+                    }
+                }
+                if (radioOtherTAANo.isSelected()) {
+                    reqest = reqest + "С другого ТА сложность сохраняется. ";
+                } else if (radioOtherTAAYes.isSelected()) {
+                    reqest = reqest + "С другого ТА нет возможности проверить. ";
+                }
+                if (chkShluzRebooted.isSelected()) {
+                    reqest = reqest + "Адаптер перезагружали. ";
+                }
+                if (chkSignalAmplification.isSelected()) {
+                    if (radioSignalAmplificationUp.isSelected()) {
+                        reqest = reqest + "Усиление сигнала на выходе увеличили. ";
+                    } else {
+                        reqest = reqest + "Усиление сигнала на выходе уменьшали. ";
+                    }
+                }
+                if (chkIncNapr.isSelected() && !txtAreaSamplesInc.getText().equals("")) {
+                    reqest = reqest + "Примеры номеров входящей связи: " + txtAreaSamplesInc.getText() + ". ";
+                }
+                if (chkOutNapr.isSelected() && !txtAreaSamplesOut.getText().equals("")) {
+                    reqest = reqest + "Примеры номеров исходящей связи: " + txtAreaSamplesOut.getText() + ". ";
+                }
+                if (txtAreaSamplesInc.getText().equals("") && txtAreaSamplesOut.getText().equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Внимание!");
+                    alert.setHeaderText("Не забудьте примеры номеров!");
+
+                    alert.showAndWait();
+                }
+
+            } else if (tabIVR.isSelected()) {
+                if (chkAon.isSelected() && radioAonNotWork.isSelected()) {
+                    reqest = reqest + "Не срабатывает определитель номера при входящих вызовах. Включен Евро АОН. ";
+                } else if (chkAon.isSelected() && radioAonIncorrectWork.isSelected()) {
+                    reqest = reqest + "Некорректно работает определитель номера. Примеры номеров, которые звонили клиенту: "
+                            + txtfieldSimplesOfNumber.getText() + ". Номер, который по факту определяется у клиента: " +
+                            txtfieldDetectedNumber.getText() + ". ";
+                }
+                if (chkIVR.isSelected()) {
+                    reqest = reqest + "Не срабатывает донабор в голосовом меню ";
+                    if (radioThrough7.isSelected()) {
+                        reqest = reqest + "при звонке через 7. ";
+                    } else if (radioThrough7and8.isSelected()) {
+                        reqest = reqest + "при звонке через 7 и 8. ";
+                    } else {
+                        reqest = reqest + "при наборе через городской номер. ";
+                    }
+                    reqest = reqest + "Примеры номеров, где клиент пытался использовать IVR: " +
+                            txtfieldNumberSimpleses.getText() + ". ";
+                }
+                if (chkTime.isSelected()) {
+                    reqest = reqest + "Со слов клиента, на трубке сбивается время. ";
+                }
             }
 
 
@@ -1224,4 +1423,315 @@ public class Controller
         textReqest.setText(reqest);
     }
 
+    public void ClearAllClicked() {
+        textReqest.setText("");
+        radioNetCableNotConnected.setSelected(true);
+        radioOperStatDown.setSelected(true);
+        radioMacVisiableNo.setSelected(true);
+        radioCommutIsControlledYes.setSelected(true);
+        radioMacOfNeighborsNo.setSelected(true);
+        radioMacBelongsNo.setSelected(true);
+        txtMacVisiable.setDisable(true);
+        radioMacVisiableNo.setDisable(true);
+        radioMacVisiableYes.setDisable(true);
+        txtMacOfNeighbors.setDisable(true);
+        radioMacOfNeighborsNo.setDisable(true);
+        radioMacOfNeighborsYes.setDisable(true);
+        txtMacBelongs.setDisable(true);
+        radioMacBelongsNo.setDisable(true);
+        radioMacBelongsYes.setDisable(true);
+
+        chkBreaks.setSelected(false);
+        chkBreaks1Pair.setSelected(false);
+        chkBreaks2Pair.setSelected(false);
+        chkBreaks1Pair.setDisable(true);
+        chkBreaks2Pair.setDisable(true);
+        txtfieldBreaks1Pair.setDisable(true);
+        txtfieldBreaks2Pair.setDisable(true);
+        txtBreaks1Pair.setDisable(true);
+        txtBreaks2Pair.setDisable(true);
+        txtfieldBreaks1Pair.setText("");
+        txtfieldBreaks2Pair.setText("");
+
+        chkPortNoReaction.setSelected(false);
+        chkPortRestarted.setSelected(false);
+        chkPortMode.setSelected(false);
+        chkRouterFaulty.setSelected(false);
+        chkRouterReplacement.setSelected(false);
+        chkProblemPort.setSelected(false);
+        comboPortMode.setValue("10 Mbit");
+
+        chkNoSessionsOfNeighbors.setSelected(false);
+        chkNoSessionsOfNeighbors.setVisible(false);
+        chkMagistralPortNo.setSelected(false);
+        chkMagistralPortNo.setVisible(false);
+
+        soSlovClienta.setSelected(false);
+        podklychenieCabelya.setSelected(false);
+        udobnoeVremya.setSelected(false);
+        clientConflict.setSelected(false);
+        fromPPd.setSelected(false);
+        szWithoutGraffic.setSelected(false);
+        onHold.setSelected(false);
+        garantService.setSelected(false);
+        contactPhone.setText("");
+        timeSz.setValue("");
+        dateCZ.setValue(null);
+
+        chkDisconnectsOnGN.setSelected(false);
+        chkNeighborsMore3Disc.setSelected(false);
+        chkAccumErros.setSelected(false);
+        chkPortFlopCheck.setSelected(false);
+        chkSrotmControl.setSelected(false);
+        chkStp.setSelected(false);
+        chkRouterFaultys.setSelected(false);
+        chkZamena.setSelected(false);
+
+        txtDisconnectsOnGN.setText("");
+        comboReason.setValue("Lost-Carrier");
+
+
+        chkExternalPing.setSelected(false);
+        txtfieldExternalPingSize.setText("1400");
+        txtfieldExternalPingSend.setText("30");
+        txtfieldExternalPingReceived.setText("");
+        txtfieldExternalPingAddr.setText("ya.ru");
+        txtfieldExternalPingSize.setDisable(true);
+        txtfieldExternalPingSend.setDisable(true);
+        txtfieldExternalPingReceived.setDisable(true);
+        txtfieldExternalPingAddr.setDisable(true);
+
+        chkDNSPing.setSelected(false);
+        txtfieldDNSSize.setText("1400");
+        txtfieldDNSSize.setDisable(true);
+        txtfieldDNSSend.setText("30");
+        txtfieldDNSSend.setDisable(true);
+        txtfieldDNSRecived.setText("");
+        txtfieldDNSRecived.setDisable(true);
+
+        chkSwitchPing.setSelected(false);
+        txtfieldSwitchSize.setText("1400");
+        txtfieldSwitchSize.setDisable(true);
+        txtfieldSwitchSend.setText("30");
+        txtfieldSwitchSend.setDisable(true);
+        txtfieldSwitchRecived.setText("");
+        txtfieldSwitchRecived.setDisable(true);
+        txtfieldSwitchIP.setText("0.0.0.0");
+        txtfieldSwitchIP.setDisable(true);
+        txtfieldSwitchPort.setText("");
+        txtfieldSwitchPort.setDisable(true);
+
+        txtErrorsOnPortSpeed.setText("0");
+        chkErrorsOnPortSpeedUp.setSelected(false);
+        chkRouterFaultyses.setSelected(false);
+
+        chkSpeedST.setSelected(false);
+        txtfieldSpeedSTDownload.setDisable(true);
+        txtfieldSpeedSTDownload.setText("");
+        txtfieldSpeedSTUpload.setDisable(true);
+        txtfieldSpeedSTUpload.setText("");
+        txtfieldSpeedSTMustBe.setDisable(true);
+        txtfieldSpeedSTMustBe.setText("");
+
+        chkSpeedIperf.setSelected(false);
+        txtfieldSpeedIperfSpeed.setText("");
+        comboSpeedIperfCity.setValue("");
+
+        chkDiffWifi.setSelected(false);
+        chkDiffWifi.setDisable(true);
+        chkZamenas.setSelected(false);
+        chkZamenas.setDisable(true);
+        comboDiffWifi.setDisable(true);
+        comboDiffWifi.setValue("Низкий уровень сигнала");
+
+
+        chkSpillageImage.setSelected(false);
+        chkFadingImage.setSelected(false);
+        chkBroadcastingInterruption.setSelected(false);
+        chkNoBrodcastOnAllChannels.setSelected(false);
+        chkNoBrodcastOnCoddedChannels.setSelected(false);
+        chkNoBrodcastOnSomeChannels.setSelected(false);
+        chkDontOpenPortal.setSelected(false);
+        chkNoSound.setSelected(false);
+
+        ctvShowChk.setSelected(false);
+        ctvShowBtnYes.setSelected(true);
+        ctvShowBtnYes.setDisable(true);
+        ctvShowBtnNo.setDisable(true);
+
+        chkCheckKTV.setSelected(false);
+        chkFaulty.setSelected(false);
+        chkReplacement.setSelected(false);
+        chkSubscription.setSelected(false);
+        chkCardInsered.setSelected(false);
+        chkDecoderRestarted.setSelected(false);
+        chkDecoderRebootet.setSelected(false);
+        chkCamChannelsResearched.setSelected(false);
+        chkCamInsered.setSelected(false);
+        radioCKTVDecoder.setSelected(true);
+
+
+        ktvQalityOfSignal.setSelected(false);
+        ktvInterferencel.setSelected(false);
+        ktvInterferencel.setDisable(true);
+        ktvNoSound.setSelected(false);
+        ktvNoSound.setDisable(true);
+        ktvBlackAndWhiteImage.setSelected(false);
+        ktvBlackAndWhiteImage.setDisable(true);
+
+
+        ktvNoSignal.setSelected(false);
+        ktvNoSignalAll.setSelected(true);
+        ktvNoSignalAll.setDisable(true);
+        ktvNoSignalOnSome.setDisable(true);
+
+
+        chkCabelContinuity.setSelected(false);
+        chkCheckLevelSignal.setSelected(false);
+        chkChannelsResearcheded.setSelected(false);
+
+
+        txtGNum.setText("");
+        radioPhoneOperStatDown.setSelected(true);
+
+        radioPhoneMacVisiableNo.setSelected(true);
+        radioPhoneMacVisiableNo.setDisable(true);
+        radioPhoneMacVisiableYes.setDisable(true);
+
+        chkAdapterReboted.setSelected(false);
+
+
+        chkNoIncConnection.setSelected(false);
+        chkNoOutConnection.setSelected(false);
+        chkSipRegistration.setSelected(false);
+        radioSipRegistrationYes.setSelected(true);
+        radioSipRegistrationYes.setDisable(true);
+        radioSipRegistrationNo.setDisable(true);
+
+        chkCallFromOffice.setSelected(false);
+        radioCallFromOfficeYes.setSelected(true);
+        radioCallFromOfficeYes.setDisable(true);
+        radioCallFromOfficeNo.setDisable(true);
+
+        txtMoroMoro.setText("");
+
+        chkWithSpecificNumber.setSelected(false);
+        txtfieldWithSpecificNumber.setText("");
+        txtfieldWithSpecificNumber.setDisable(true);
+
+        radioNumberMatch.setSelected(true);
+        radioNumberMatch.setDisable(true);
+        radioNumberNoMatch.setDisable(true);
+
+        chkOtherTA.setSelected(false);
+
+        radioBeepInHandsetNo.setSelected(false);
+        radioBeepInHandsetYes.setSelected(false);
+        radioBeepInHandsetNo.setDisable(true);
+        radioBeepInHandsetYes.setDisable(true);
+
+        radioOtherTANo.setSelected(false);
+        radioOtherTAYes.setSelected(false);
+        radioOtherTANo.setDisable(true);
+        radioOtherTAYes.setDisable(true);
+
+        chkAdapterReboteded.setSelected(false);
+
+        txtSamplesIncNumbers.setDisable(true);
+        txtSamplesOutNumbers.setDisable(true);
+        txtSamplesIncNumbers.setText("");
+        txtSamplesOutNumbers.setText("");
+
+        radioCharacterTresk.setSelected(true);
+        chkIncNapr.setSelected(false);
+        chkOutNapr.setSelected(false);
+        chkWhoHerarsClient.setSelected(false);
+        chkWhoHerarsSob.setSelected(false);
+        radioOtherTAAYes.setSelected(true);
+
+        chkLossToSwitch.setSelected(false);
+        txtfieldLossToSwitch.setText("0");
+        txtfieldLossToSwitch.setDisable(true);
+
+        chkLossToGateway.setSelected(false);
+        txtfieldLossToGateway.setText("");
+        txtfieldLossToGateway.setDisable(true);
+
+        chkShluzRebooted.setSelected(false);
+
+        chkSignalAmplification.setSelected(false);
+        radioSignalAmplificationUp.setSelected(true);
+        radioSignalAmplificationUp.setDisable(true);
+        radioSignalAmplificationDown.setDisable(true);
+
+        chkErrorsForPort.setSelected(false);
+        txtfieldErrorsForPort.setDisable(true);
+        txtfieldErrorsForPort.setText("0");
+        chkErrorsRastut.setSelected(false);
+        chkErrorsRastut.setDisable(true);
+
+        txtAreaSamplesInc.setDisable(true);
+        txtAreaSamplesInc.setText("");
+        txtAreaSamplesOut.setDisable(true);
+        txtAreaSamplesOut.setText("");
+
+        chkAon.setSelected(false);
+        radioAonNotWork.setSelected(true);
+        radioAonNotWork.setDisable(true);
+        radioAonIncorrectWork.setDisable(true);
+        lableSimplesOfNumber.setDisable(true);
+        txtfieldSimplesOfNumber.setDisable(true);
+        txtfieldSimplesOfNumber.setText("");
+        lableDetectedNumber.setDisable(true);
+        txtfieldDetectedNumber.setDisable(true);
+        txtfieldDetectedNumber.setText("");
+
+        chkIVR.setSelected(false);
+        labelFormatOfNumber.setDisable(true);
+        radioThrough7.setSelected(true);
+        radioThrough7.setDisable(true);
+        radioThrough7and8.setDisable(true);
+        radioDialingLandlineNumber.setDisable(true);
+        labelNumberSimpleses.setDisable(true);
+        txtfieldNumberSimpleses.setDisable(true);
+        txtfieldNumberSimpleses.setText("");
+
+        chkTime.setSelected(false);
+
+
+    }
+
+    public void CopyClicked() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(textReqest.getText());
+        clipboard.setContent(content);
+    }
+
+    public void TextexeClicked() throws IOException, URISyntaxException {
+        String test = new String("212.33.255.58");
+
+        launchBrowser(test);
+
+
+    }
+
+    private void launchBrowser(String uriStr) {
+        Desktop desktop;
+        if (Desktop.isDesktopSupported()) {
+            desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                // launch browser
+                URI uri;
+                try {
+                    uri = new URI("http://" + uriStr);
+                    desktop.browse(uri);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                } catch (URISyntaxException use) {
+                    use.printStackTrace();
+                }
+            }
+        }
+    }
 }
