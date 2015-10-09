@@ -1,13 +1,17 @@
 package sample;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.awt.*;
 import java.io.IOException;
@@ -1710,9 +1714,7 @@ public class Controller
 
     public void TextexeClicked() throws IOException, URISyntaxException {
         String test = new String("212.33.255.58");
-
         launchBrowser(test);
-
 
     }
 
@@ -1734,4 +1736,69 @@ public class Controller
             }
         }
     }
+
+    //logic for remember
+
+    public TextField txtRemNumDog;
+    public TextField txtRemNumPhone;
+    public TextField txtRemComment;
+    public ComboBox comboHours;
+    public ComboBox comboMinutes;
+    public ListView listviewRemember;
+
+    public TabPane remTabPane;
+
+
+    public void CreateRememberClicked() {
+        // Create the custom dialog.
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Добавить напоминание");
+        dialog.setHeaderText("Введите пожалуйста номер договора и телефон:");
+
+
+// Set the button types.
+        ButtonType loginButtonType = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+// Create the username and password labels and fields.
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(50, 180, 10, 10));
+
+        TextField dog = new TextField();
+        dog.setPromptText("№ договора");
+        TextField kt = new TextField();
+        kt.setPromptText("№ телефона");
+        TextField komm = new TextField();
+        komm.setPromptText("Комментарий");
+        ComboBox Hours = new ComboBox();
+        Hours.setPromptText("Часов ");
+        ComboBox Minuts = new ComboBox();
+        Minuts.setPromptText("Минут");
+
+        grid.add(new Label("1. Введите номер договора:"), 0, 0);
+        grid.add(dog, 1, 0);
+        grid.add(new Label("2. Введите контактный телефон:"), 0, 1);
+        grid.add(kt, 1, 1);
+        grid.add(new Label("3. Введите комментарий:"), 0, 2);
+        grid.add(komm, 1, 2);
+        grid.add(new Label("4. Выберите время:"), 0, 3);
+        grid.add(Hours, 1, 3);
+        grid.add(Minuts, 1, 4);
+
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.showAndWait();
+
+        Tab tab = new Tab();
+        tab.setText(dog.getText());
+//      tab.setContent(new Rectangle(200,200);
+
+        remTabPane.getTabs().add(tab);
+
+
+    }
+
+
 }

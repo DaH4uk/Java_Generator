@@ -1223,34 +1223,105 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="329.0">
+                         <VBox layoutX="14.0" layoutY="14.0" prefHeight="129.0" prefWidth="413.0">
                            <children>
                               <HBox prefHeight="30.0" prefWidth="183.0">
                                  <children>
                                     <Label prefHeight="30.0" prefWidth="165.0" text="1. Введите номер договора:" />
-                                    <TextField prefHeight="25.0" prefWidth="160.0" promptText="№ договора" />
+                                     <TextField fx:id="txtRemNumDog" prefHeight="25.0" prefWidth="170.0"
+                                                promptText="№ договора"/>
                                  </children>
                               </HBox>
                               <HBox prefHeight="30.0" prefWidth="183.0">
                                  <children>
                                     <Label prefHeight="30.0" prefWidth="165.0" text="2. Введите номер телефона:" />
-                                    <TextField prefHeight="25.0" prefWidth="160.0" promptText="№ телефона" />
+                                     <TextField fx:id="txtRemNumPhone" prefHeight="25.0" prefWidth="170.0"
+                                                promptText="№ телефона"/>
                                  </children>
                               </HBox>
                               <HBox prefHeight="30.0" prefWidth="183.0">
                                  <children>
-                                    <Label prefHeight="30.0" prefWidth="170.0" text="3. Выберите время:" />
-                                    <ComboBox editable="true" prefHeight="25.0" prefWidth="85.0" promptText="Часы" />
-                                    <ComboBox editable="true" prefHeight="25.0" prefWidth="85.0" promptText="Минуты" />
+                                     <Label prefHeight="30.0" prefWidth="165.0" text="3. Напомнить через:"/>
+                                     <ComboBox fx:id="comboHours" editable="true" prefHeight="25.0" prefWidth="85.0"
+                                               promptText="Часы">
+                                         <items>
+                                             <FXCollections fx:factory="observableArrayList">
+                                                 <String fx:value="1"/>
+                                                 <String fx:value="2"/>
+                                                 <String fx:value="3"/>
+                                                 <String fx:value="4"/>
+                                                 <String fx:value="5"/>
+                                                 <String fx:value="6"/>
+                                                 <String fx:value="7"/>
+                                                 <String fx:value="8"/>
+                                                 <String fx:value="9"/>
+                                                 <String fx:value="10"/>
+                                                 <String fx:value="11"/>
+                                                 <String fx:value="12"/>
+                                             </FXCollections>
+                                         </items>
+                                         <value>
+                                             <String fx:value=""/>
+                                         </value>
+                                     </ComboBox>
+                                     <ComboBox fx:id="comboMinutes" editable="true" prefHeight="25.0" prefWidth="85.0"
+                                               promptText="Минуты">
+                                         <items>
+                                             <FXCollections fx:factory="observableArrayList">
+                                                 <String fx:value="5"/>
+                                                 <String fx:value="10"/>
+                                                 <String fx:value="15"/>
+                                                 <String fx:value="20"/>
+                                                 <String fx:value="25"/>
+                                                 <String fx:value="30"/>
+                                                 <String fx:value="35"/>
+                                                 <String fx:value="40"/>
+                                                 <String fx:value="45"/>
+                                                 <String fx:value="50"/>
+                                                 <String fx:value="55"/>
+                                             </FXCollections>
+                                         </items>
+                                         <value>
+                                             <String fx:value=""/>
+                                         </value>
+                                     </ComboBox>
                                  </children>
                               </HBox>
+                               <HBox layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="183.0">
+                                   <children>
+                                       <Label prefHeight="30.0" prefWidth="165.0" text="4. Комментарий:"/>
+                                       <TextField fx:id="txtRemComment" prefHeight="25.0" prefWidth="170.0"
+                                                  promptText="Комментарий"/>
+                                   </children>
+                               </HBox>
                            </children>
                         </VBox>
-                        <ListView layoutX="15.0" layoutY="169.0" prefHeight="113.0" prefWidth="470.0" />
-                        <Button layoutX="343.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="139.0" text="Создать напоминание" />
+                         <ListView fx:id="listviewRemember" editable="true" layoutX="15.0" layoutY="169.0"
+                                   prefHeight="113.0" prefWidth="470.0"/>
+                         <Button layoutX="180.0" layoutY="137.0" mnemonicParsing="false"
+                                 onAction="#CreateRememberClicked" prefHeight="25.0" prefWidth="139.0"
+                                 text="Создать напоминание"/>
                      </children>
                   </AnchorPane>
               </content>
+            </Tab>
+            <Tab onSelectionChanged="#initializeTestexe" text="Напоминание">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TabPane fx:id="remTabPane" layoutX="4.0" layoutY="29.0" prefHeight="265.0"
+                                     prefWidth="500.0">
+                                <tabs>
+                                    <Tab text="Напоминание 1"/>
+                                    <Tab text="Напоминание 2"/>
+                                </tabs>
+                            </TabPane>
+                            <Button layoutX="4.0" layoutY="2.0" mnemonicParsing="false"
+                                    onAction="#CreateRememberClicked" prefHeight="25.0" prefWidth="140.0"
+                                    text="Создать напоминание"/>
+                        </children>
+                    </AnchorPane>
+                </content>
             </Tab>
         </tabs>
       </TabPane>
