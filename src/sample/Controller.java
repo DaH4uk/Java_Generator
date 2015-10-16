@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -10,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -755,16 +759,16 @@ public class Controller
             try {
                 if (udobnoeVremya.isSelected() && !szWithoutGraffic.isSelected())
                     reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
-                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getEditor().getText() + ". ";
 
             if (szWithoutGraffic.isSelected()) {
                 reqest = reqest + "ВЫСОКИЙ ПРИОРИТЕТ! ";
                 if (udobnoeVremya.isSelected()) {
                     reqest = reqest + "Клиенту удобно принять техника " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
-                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getEditor().getText() + ". ";
                 } else {
                     reqest = reqest + "Требуется СЗ вне графика на " + dateCZ.getValue().getDayOfMonth() + "." + dateCZ.getValue().getMonthValue()
-                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getValue() + ". ";
+                            + "." + dateCZ.getValue().getYear() + " " + timeSz.getEditor().getText() + ". ";
                 }
             }
             } catch (Exception e) {
@@ -847,7 +851,7 @@ public class Controller
                     reqest = reqest + "Порт перезапускали. ";
                 }
                 if (chkPortMode.isSelected()) {
-                    reqest = reqest + "Порт работает в режиме " + comboPortMode.getValue() +
+                    reqest = reqest + "Порт работает в режиме " + comboPortMode.getEditor().getText() +
                             " В параметрах драйвера Lan указывали 100 Mb/Full-Duplex, ситуация не изменилась. ";
                 }
                 if (chkRouterFaulty.isSelected() && chkRouterReplacement.isSelected()) {
@@ -878,7 +882,7 @@ public class Controller
                         reqest = reqest + "Подозрение на неисправность роутера. Через роутер: ";
                     }
                 }
-                reqest = reqest + "Частые разрывы соединения по причине " + comboReason.getValue() + ". ";
+                reqest = reqest + "Частые разрывы соединения по причине " + comboReason.getEditor().getText() + ". ";
                 if ((comboReason.getValue().equals("Lost-Carrier ") || comboReason.getValue().equals("Lost-Carrier") || comboReason.getValue().equals("Lost-Service")
                         || comboReason.getValue().equals("Port-Error") || comboReason.getValue().equals("NAS-Error") || comboReason.getValue().equals("NAS-Reboot")
                         || comboReason.getValue().equals("NAS-Request")) && !chkNeighborsMore3Disc.isSelected() && !chkAccumErros.isSelected()
@@ -921,7 +925,7 @@ public class Controller
                 if (chkRouterFaultyses.isSelected()) {
                     reqest = reqest + "Подозрение на неисправность роутера. ";
                     if (chkDiffWifi.isSelected()) {
-                        reqest = reqest + "Через роутер по wi-fi: " + comboDiffWifi.getValue() + ". ";
+                        reqest = reqest + "Через роутер по wi-fi: " + comboDiffWifi.getEditor().getText() + ". ";
                     } else {
                         reqest = reqest + "Через роутер по патч-корду: ";
                     }
@@ -934,7 +938,7 @@ public class Controller
                             " Мбит/с. (Должно быть " + txtfieldSpeedSTMustBe.getText() + " Мбит/с). ";
                 }
                 if (chkSpeedIperf.isSelected()) {
-                    reqest = reqest + "По Iperf: " + txtfieldSpeedIperfSpeed.getText() + " Мбит/c до г.: " + comboSpeedIperfCity.getValue() + ". ";
+                    reqest = reqest + "По Iperf: " + txtfieldSpeedIperfSpeed.getText() + " Мбит/c до г.: " + comboSpeedIperfCity.getEditor().getText() + ". ";
                 }
                 try {
                     if (chkExternalPing.isSelected()) {
@@ -1009,9 +1013,9 @@ public class Controller
                 reqest = reqest + "ЦКТВ. ";
 
                 if (chkFaulty.isSelected() && radioCKTVDecoder.isSelected()) {
-                    reqest = reqest + "Подозрение на неиправность декодера. ";
+                    reqest = reqest + "Подозрение на неисправность декодера. ";
                 } else if (chkFaulty.isSelected() && radioCamModule.isSelected()) {
-                    reqest = reqest + "Подозрение на неиправность Cam-модуля. ";
+                    reqest = reqest + "Подозрение на неисправность Cam-модуля. ";
                 }
 
 
@@ -1764,41 +1768,132 @@ public class Controller
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(50, 180, 10, 10));
+        grid.setPadding(new Insets(40, 170, 10, 10));
 
         TextField dog = new TextField();
         dog.setPromptText("№ договора");
         TextField kt = new TextField();
         kt.setPromptText("№ телефона");
-        TextField komm = new TextField();
+        TextArea komm = new TextArea();
         komm.setPromptText("Комментарий");
-        ComboBox Hours = new ComboBox();
+        komm.setWrapText(true);
+        ComboBox Hours = new ComboBox(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
         Hours.setPromptText("Часов ");
-        ComboBox Minuts = new ComboBox();
+        Hours.setEditable(true);
+        ComboBox Minuts = new ComboBox(FXCollections.observableArrayList(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55));
         Minuts.setPromptText("Минут");
+        Minuts.setEditable(true);
 
         grid.add(new Label("1. Введите номер договора:"), 0, 0);
         grid.add(dog, 1, 0);
         grid.add(new Label("2. Введите контактный телефон:"), 0, 1);
         grid.add(kt, 1, 1);
-        grid.add(new Label("3. Введите комментарий:"), 0, 2);
-        grid.add(komm, 1, 2);
-        grid.add(new Label("4. Выберите время:"), 0, 3);
-        grid.add(Hours, 1, 3);
-        grid.add(Minuts, 1, 4);
+        grid.add(new Label("3. Напомнить через:"), 0, 2);
+        Hours.setPrefWidth(80);
+        Minuts.setPrefWidth(80);
+        HBox settime = new HBox(Hours, Minuts);
+
+        grid.add(settime, 1, 2);
+        grid.add(new Label("4. Введите комментарий:"), 0, 3);
+        komm.setPrefWidth(50);
+        grid.add(komm, 1, 3);
+
+
 
 
         dialog.getDialogPane().setContent(grid);
+
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                if (!dog.equals("")) {
+                    String hrs = null;
+                    String mnts = null;
+
+                    try {
+                        Long.parseLong(dog.getText());
+                        hrs = Hours.getEditor().getText();
+                        if (hrs.equals("")) {
+                            hrs = "0";
+                        }
+                        mnts = Minuts.getEditor().getText();
+                        if (mnts.equals("")) {
+                            mnts = "0";
+                        }
+
+                        Tab tab = new Tab();
+                        tab.setText(dog.getText());
+
+
+                        GridPane grids = new GridPane();
+
+                        grids.setHgap(10);
+                        grids.setVgap(10);
+                        grids.setPadding(new Insets(40, 250, 10, 10));
+
+                        TextField dogs = new TextField(dog.getText());
+                        dog.setPromptText("№ договора");
+                        dogs.setPrefWidth(110);
+                        TextField kts = new TextField(kt.getText());
+                        kt.setPromptText("№ телефона");
+                        kts.setPrefWidth(110);
+                        TextArea komms = new TextArea(komm.getText());
+                        komms.setWrapText(true);
+                        komm.setPromptText("Комментарий");
+                        komms.setPrefWidth(150);
+                        Label Hourss = new Label("  Напоминание через: " + hrs + " ч. ");
+                        Label Minutss = new Label(mnts + " мин.");
+                        Hourss.setFont(new Font("System", 15));
+                        Minutss.setFont(new Font("System", 15));
+
+                        Label ss = new Label("Номер договора:");
+                        grids.add(ss, 0, 0);
+                        grids.add(dogs, 1, 0);
+                        Label sd = new Label("Контактный телефон:");
+
+                        grids.add(sd, 0, 1);
+                        grids.add(kts, 1, 1);
+                        Label sds = new Label("Комментарий:");
+
+                        grids.add(sds, 0, 2);
+                        grids.add(komms, 1, 2);
+//                        grids.add(new Label("4. Напомнить через:"), 0, 3);
+//                        grids.add(Hourss, 0, 3);
+//                        grids.add(Minutss, 1, 3);
+                        Label label = new Label();
+                        label.setFont(new Font("System", 10));
+                        HBox hBox = new HBox(Hourss, Minutss);
+                        VBox vBox = new VBox(label, hBox, grids);
+                        tab.setContent(vBox);
+
+                        remTabPane.getTabs().add(tab);
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Внимание!!!");
+                        alert.setHeaderText("Введите корректный номер договора!");
+                        alert.showAndWait();
+                    }
+
+
+                    Timer timer = new Timer(hrs, mnts);
+                    timer.start();
+
+                }
+
+
+                return null;
+            }
+            return null;
+        });
+
         dialog.showAndWait();
-
-        Tab tab = new Tab();
-        tab.setText(dog.getText());
-//      tab.setContent(new Rectangle(200,200);
-
-        remTabPane.getTabs().add(tab);
 
 
     }
 
-
 }
+
+
+

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/sample/Timer.java" line="37" mnemonic="1" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bcfc103-4c80-4061-9bed-49adef80f756" name="Changelist 29.09.2015" comment="Закончил логику для диагностики.">
+    <list default="true" id="3bcfc103-4c80-4061-9bed-49adef80f756" name="Changelist 29.09.2015" comment="Начал делать логику напоминаний.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Java_Generator.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Java_Generator_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Java_Generator_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java Generator/sample/sample.fxml" afterPath="$PROJECT_DIR$/out/production/Java Generator/sample/sample.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Controller.java" afterPath="$PROJECT_DIR$/src/sample/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/sample.fxml" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" />
     </list>
@@ -78,11 +84,21 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37774524">
-              <caret line="1781" column="38" selection-start-line="1781" selection-start-column="38" selection-end-line="1781" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.5480059">
+              <caret line="1889" column="17" selection-start-line="1889" selection-start-column="17" selection-end-line="1889" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Timer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/Timer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -93,9 +109,11 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.2619047">
-              <caret line="1058" column="49" selection-start-line="1058" selection-start-column="49" selection-end-line="1058" selection-end-column="49" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="977" column="37" selection-start-line="977" selection-start-column="37" selection-end-line="977" selection-end-column="37" />
+              <folding>
+                <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,10 +158,12 @@
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
+        <option value="$PROJECT_DIR$/src/sample/Timer.java" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
@@ -305,6 +325,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -357,9 +380,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -376,9 +396,9 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/META-INF" />
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -671,6 +691,22 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
@@ -839,7 +875,13 @@
       <workItem from="1443953496033" duration="9931000" />
       <workItem from="1444117011572" duration="131000" />
       <workItem from="1444120742211" duration="1367000" />
-      <workItem from="1444288595161" duration="29863000" />
+      <workItem from="1444288595161" duration="30599000" />
+      <workItem from="1444469175395" duration="945000" />
+      <workItem from="1444549011446" duration="548000" />
+      <workItem from="1444550037876" duration="3788000" />
+      <workItem from="1444737394528" duration="4393000" />
+      <workItem from="1444896156064" duration="3872000" />
+      <workItem from="1444979476368" duration="4976000" />
     </task>
     <task id="LOCAL-00001" summary="logic in visualization&#10;">
       <created>1443430580692</created>
@@ -889,11 +931,17 @@
       <option name="project" value="LOCAL" />
       <updated>1444392868269</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Начал делать логику напоминаний.">
+      <created>1444418756094</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1444418756094</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42938000" />
+    <option name="totallyTimeSpent" value="62196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
@@ -906,7 +954,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328341" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328341" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14746544" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18778802" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15938511" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -953,7 +1001,8 @@
     <MESSAGE value="Частичная реализация логки для ЦКТВ." />
     <MESSAGE value="Допиливаю логику для телефонии отсутствие входящей исходящей связи." />
     <MESSAGE value="Закончил логику для диагностики." />
-    <option name="LAST_COMMIT_MESSAGE" value="Закончил логику для диагностики." />
+    <MESSAGE value="Начал делать логику напоминаний." />
+    <option name="LAST_COMMIT_MESSAGE" value="Начал делать логику напоминаний." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
@@ -967,16 +1016,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -984,7 +1023,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1257" column="37" selection-start-line="1257" selection-start-column="37" selection-end-line="1257" selection-end-column="37" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1013,7 +1054,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1048" column="37" selection-start-line="1048" selection-start-column="37" selection-end-line="1048" selection-end-column="37" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1042,7 +1085,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="388" column="21" selection-start-line="388" selection-start-column="21" selection-end-line="388" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1071,7 +1116,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="388" column="21" selection-start-line="388" selection-start-column="21" selection-end-line="388" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1108,7 +1155,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="207" column="83" selection-start-line="206" selection-start-column="72" selection-end-line="206" selection-end-column="83" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1137,7 +1186,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="155" column="75" selection-start-line="155" selection-start-column="75" selection-end-line="155" selection-end-column="75" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1166,7 +1217,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="38" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="38" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1195,7 +1248,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="631" column="32" selection-start-line="631" selection-start-column="32" selection-end-line="631" selection-end-column="32" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1224,7 +1279,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="958" column="18" selection-start-line="958" selection-start-column="18" selection-end-line="958" selection-end-column="18" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,7 +1310,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="958" column="18" selection-start-line="958" selection-start-column="18" selection-end-line="958" selection-end-column="18" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1282,7 +1341,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="892" column="106" selection-start-line="892" selection-start-column="106" selection-end-line="892" selection-end-column="106" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1311,7 +1372,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="892" column="106" selection-start-line="892" selection-start-column="106" selection-end-line="892" selection-end-column="106" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1340,7 +1403,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="892" column="106" selection-start-line="892" selection-start-column="106" selection-end-line="892" selection-end-column="106" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1369,7 +1434,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="841" column="45" selection-start-line="841" selection-start-column="45" selection-end-line="841" selection-end-column="45" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1398,7 +1465,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1440,16 +1509,26 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.2619047">
-          <caret line="1058" column="49" selection-start-line="1058" selection-start-column="49" selection-end-line="1058" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="977" column="37" selection-start-line="977" selection-start-column="37" selection-end-line="977" selection-end-column="37" />
+          <folding>
+            <marker date="1444898008499" expanded="true" signature="89113:89135" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37774524">
-          <caret line="1781" column="38" selection-start-line="1781" selection-start-column="38" selection-end-line="1781" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.5480059">
+          <caret line="1889" column="17" selection-start-line="1889" selection-start-column="17" selection-end-line="1889" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1461,7 +1540,14 @@
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
-          <artifact-editor />
+          <artifact-editor>
+            <show-content>
+              <type id="library" />
+              <type id="jpa-descriptors" />
+              <type id="artifact" />
+              <type id="javaee-facet-resources" />
+            </show-content>
+          </artifact-editor>
           <last-edited>Java Generator:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">

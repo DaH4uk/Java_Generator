@@ -984,37 +984,14 @@
               </content>
             </Tab>
             <Tab onSelectionChanged="#initializeTestexe" text="Напоминание">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="329.0">
-                           <children>
-                              <HBox prefHeight="30.0" prefWidth="183.0">
-                                 <children>
-                                    <Label prefHeight="30.0" prefWidth="165.0" text="1. Введите номер договора:" />
-                                    <TextField prefHeight="25.0" prefWidth="160.0" promptText="№ договора" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="30.0" prefWidth="183.0">
-                                 <children>
-                                    <Label prefHeight="30.0" prefWidth="165.0" text="2. Введите номер телефона:" />
-                                    <TextField prefHeight="25.0" prefWidth="160.0" promptText="№ телефона" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="30.0" prefWidth="183.0">
-                                 <children>
-                                    <Label prefHeight="30.0" prefWidth="170.0" text="3. Выберите время:" />
-                                    <ComboBox editable="true" prefHeight="25.0" prefWidth="85.0" promptText="Часы" />
-                                    <ComboBox editable="true" prefHeight="25.0" prefWidth="85.0" promptText="Минуты" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <ListView layoutX="15.0" layoutY="169.0" prefHeight="113.0" prefWidth="470.0" />
-                        <Button layoutX="343.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="139.0" text="Создать напоминание" />
+                        <TabPane fx:id="remTabPane" layoutX="4.0" layoutY="29.0" prefHeight="265.0" prefWidth="500.0" />
+                        <Button layoutX="4.0" layoutY="2.0" mnemonicParsing="false" onAction="#CreateRememberClicked" prefHeight="25.0" prefWidth="140.0" text="Создать напоминание" />
                      </children>
                   </AnchorPane>
-              </content>
+               </content>
             </Tab>
         </tabs>
       </TabPane>
@@ -1064,7 +1041,7 @@
                              </value>
                         </ComboBox>
                         <Label text="    " />
-                         <DatePicker fx:id="dateCZ" editable="false" prefHeight="25.0" prefWidth="103.0" promptText="Дата" />
+                         <DatePicker fx:id="dateCZ" editable="false" prefHeight="25.0" prefWidth="100.0" promptText="Дата" />
                      </children>
                   </HBox>
                   <Label>
