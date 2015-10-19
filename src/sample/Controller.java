@@ -1,6 +1,9 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -1841,10 +1844,10 @@ public class Controller
                         komms.setWrapText(true);
                         komm.setPromptText("Комментарий");
                         komms.setPrefWidth(150);
-                        Label Hourss = new Label("  Напоминание через: " + hrs + " ч. ");
-                        Label Minutss = new Label(mnts + " мин.");
-                        Hourss.setFont(new Font("System", 15));
-                        Minutss.setFont(new Font("System", 15));
+                        Label Time = new Label("  Напоминание через: " + hrs + " ч. " + mnts + " мин.");
+
+                        Time.setFont(new Font("System", 15));
+
 
                         Label ss = new Label("Номер договора:");
                         grids.add(ss, 0, 0);
@@ -1857,16 +1860,65 @@ public class Controller
 
                         grids.add(sds, 0, 2);
                         grids.add(komms, 1, 2);
-//                        grids.add(new Label("4. Напомнить через:"), 0, 3);
-//                        grids.add(Hourss, 0, 3);
-//                        grids.add(Minutss, 1, 3);
+
                         Label label = new Label();
                         label.setFont(new Font("System", 10));
-                        HBox hBox = new HBox(Hourss, Minutss);
+                        HBox hBox = new HBox(Time);
                         VBox vBox = new VBox(label, hBox, grids);
                         tab.setContent(vBox);
 
+
                         remTabPane.getTabs().add(tab);
+
+                        Long Secs = Long.parseLong(hrs) * 3600 + Long.parseLong(mnts) * 60;
+
+
+                        Thread t = new Thread(new Runnable() {
+                            public Long Hourses;
+                            public Long Minuts;
+                            public Long Seconds;
+
+
+                            public void run() {
+
+                                for (Long i = Secs; i >= 0; i--) {
+                                    Long j = i;
+
+                                    Hourses = j / 3600;
+                                    j = j - Hourses * 3600;
+                                    System.out.println("Часов: " + Hourses);
+
+
+                                    Minuts = j / 60;
+                                    j = j - Minuts * 60;
+                                    Seconds = j;
+                                    System.out.println("Минут: " + Minuts);
+                                    System.out.println("Секунд: " + j);
+
+                                    final Long finalJ = j;
+
+                                    Platform.runLater(() -> Time.setText("  Напоминание через: " + Hourses + " ч. " + Minuts + " мин. " + finalJ + " сек."));
+                                    System.out.println(i);
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+
+                            }
+
+                        });
+                        t.start();
+
+                        tab.setOnClosed(new EventHandler<javafx.event.Event>() {
+                            @Override
+                            public void handle(Event event) {
+                                t.stop();
+                            }
+                        });
 
                     } catch (Exception e) {
                         System.out.println(e);
@@ -1877,8 +1929,6 @@ public class Controller
                     }
 
 
-                    Timer timer = new Timer(hrs, mnts);
-                    timer.start();
 
                 }
 
@@ -1893,6 +1943,67 @@ public class Controller
 
     }
 
+//    public class Timer extends Thread {
+//        public Long Hourses;
+//        public Long Minuts;
+//        public Long Seconds;
+//        public Long Secs;
+//
+//        public Long getSecs() {
+//            return Secs;
+//        }
+//
+//        public Long getHourses() {
+//            return Hourses;
+//        }
+//
+//        public Long getMinuts() {
+//            return Minuts;
+//        }
+//
+//        public Long getSeconds() {
+//            return Seconds;
+//        }
+//
+//        public Timer(Long Secs)
+//        {
+//            this.Secs = Secs;
+//        }
+//
+//
+//        public void run()
+//        {
+//            for (Long i = Secs; i>=0; i-- )
+//            {
+//
+//                System.out.println(i);
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                Long j=i;
+//                if (j/3600>0)
+//                {
+//                    Hourses = j/3600;
+//                    j = j - Hourses*3600;
+//                    System.out.println("Часов: " + Hourses);
+//                }
+//                if (j/60>0)
+//                {
+//                    Minuts = j/60;
+//                    j = j - Minuts*60;
+//                    Seconds = j;
+//                    System.out.println("Минут: " + Minuts);
+//                    System.out.println("Секунд: " + j);
+//                }
+//
+//            }
+//
+//        }
+//
+//
+//    }
 }
 
 
