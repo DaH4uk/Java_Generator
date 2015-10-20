@@ -2,8 +2,6 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -1748,12 +1746,6 @@ public class Controller
 
     //logic for remember
 
-    public TextField txtRemNumDog;
-    public TextField txtRemNumPhone;
-    public TextField txtRemComment;
-    public ComboBox comboHours;
-    public ComboBox comboMinutes;
-    public ListView listviewRemember;
 
     public TabPane remTabPane;
 
@@ -1865,16 +1857,16 @@ public class Controller
 
                         Label label = new Label();
                         label.setFont(new Font("System", 10));
-                        HBox hBox = new HBox(Time);
-                        VBox vBox = new VBox(label, hBox, grids);
-                        tab.setContent(vBox);
 
-
-                        remTabPane.getTabs().add(tab);
 
                         Long Secs = Long.parseLong(hrs) * 3600 + Long.parseLong(mnts) * 60;
 
+                        String file = new String("ring.mp3");
+                        System.out.println(file);
+                        Media pick = new Media("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/" + file);
+                        MediaPlayer player = new MediaPlayer(pick);
 
+                        final Long[] TempSecs = {null};
                         Thread t = new Thread(new Runnable() {
                             public Long Hourses;
                             public Long Minuts;
@@ -1883,48 +1875,64 @@ public class Controller
 
                             public void run() {
 
-                                for (Long i = Secs; i >= 0; i--) {
-                                    Long j = i;
+                                Long i = Secs;
 
+                                while (i >= 0) {
+                                    Long j = i;
+                                    TempSecs[0] = i;
                                     Hourses = j / 3600;
                                     j = j - Hourses * 3600;
-                                    System.out.println("Часов: " + Hourses);
-
 
                                     Minuts = j / 60;
                                     j = j - Minuts * 60;
                                     Seconds = j;
-                                    System.out.println("Минут: " + Minuts);
-                                    System.out.println("Секунд: " + j);
 
                                     final Long finalJ = j;
 
-                                    Platform.runLater(() -> Time.setText("  Напоминание через: " + Hourses + " ч. " + Minuts + " мин. " + finalJ + " сек."));
-                                    System.out.println(i);
+                                    Platform.runLater(() -> Time.setText("  Напоминание через: " + Hourses + " ч. " + Minuts + " мин. " + finalJ + " сек.   "));
+
+
                                     try {
-                                        Thread.sleep(20);
+                                        Thread.sleep(200);
                                     } catch (InterruptedException e) {
-                                        e.printStackTrace();
                                     }
-
-
+                                    System.out.println(i);
+                                    i--;
                                 }
+                                player.play();
 
-                                String bip = "ring.mp3";
-                                Media hit = new Media(bip);
-                                MediaPlayer mediaPlayer = new MediaPlayer(hit);
-                                mediaPlayer.play();
                             }
 
                         });
                         t.start();
 
-                        tab.setOnClosed(new EventHandler<javafx.event.Event>() {
-                            @Override
-                            public void handle(Event event) {
+                        tab.setOnClosed(e -> t.stop());
+
+                        Button button = new Button("Стоп");
+
+                        button.setOnMouseClicked(e -> {
+
+                            if (t.isAlive()) {
                                 t.stop();
                             }
+//                            else
+//                            {
+//                                button.setText("Стоп");
+//                                t.resume();
+//                            }
+                            player.stop();
+
                         });
+
+
+                        HBox hBox = new HBox(Time, button);
+                        VBox vBox = new VBox(label, hBox, grids);
+                        tab.setContent(vBox);
+
+
+                        remTabPane.getTabs().add(tab);
+
+
 
                     } catch (Exception e) {
                         System.out.println(e);
