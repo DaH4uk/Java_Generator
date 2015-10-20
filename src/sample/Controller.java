@@ -16,6 +16,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -1900,7 +1902,7 @@ public class Controller
                                     Platform.runLater(() -> Time.setText("  Напоминание через: " + Hourses + " ч. " + Minuts + " мин. " + finalJ + " сек."));
                                     System.out.println(i);
                                     try {
-                                        Thread.sleep(1000);
+                                        Thread.sleep(20);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -1908,6 +1910,10 @@ public class Controller
 
                                 }
 
+                                String bip = "ring.mp3";
+                                Media hit = new Media(bip);
+                                MediaPlayer mediaPlayer = new MediaPlayer(hit);
+                                mediaPlayer.play();
                             }
 
                         });
