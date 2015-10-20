@@ -1949,67 +1949,7 @@ public class Controller
 
     }
 
-//    public class Timer extends Thread {
-//        public Long Hourses;
-//        public Long Minuts;
-//        public Long Seconds;
-//        public Long Secs;
-//
-//        public Long getSecs() {
-//            return Secs;
-//        }
-//
-//        public Long getHourses() {
-//            return Hourses;
-//        }
-//
-//        public Long getMinuts() {
-//            return Minuts;
-//        }
-//
-//        public Long getSeconds() {
-//            return Seconds;
-//        }
-//
-//        public Timer(Long Secs)
-//        {
-//            this.Secs = Secs;
-//        }
-//
-//
-//        public void run()
-//        {
-//            for (Long i = Secs; i>=0; i-- )
-//            {
-//
-//                System.out.println(i);
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                Long j=i;
-//                if (j/3600>0)
-//                {
-//                    Hourses = j/3600;
-//                    j = j - Hourses*3600;
-//                    System.out.println("Часов: " + Hourses);
-//                }
-//                if (j/60>0)
-//                {
-//                    Minuts = j/60;
-//                    j = j - Minuts*60;
-//                    Seconds = j;
-//                    System.out.println("Минут: " + Minuts);
-//                    System.out.println("Секунд: " + j);
-//                }
-//
-//            }
-//
-//        }
-//
-//
-//    }
+
 }
 
 
