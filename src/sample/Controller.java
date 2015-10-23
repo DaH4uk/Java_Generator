@@ -1580,6 +1580,11 @@ public class Controller
         chkCamChannelsResearched.setSelected(false);
         chkCamInsered.setSelected(false);
         radioCKTVDecoder.setSelected(true);
+        chkDecoderRestarted.setDisable(false);
+        chkDecoderRebootet.setDisable(false);
+        chkCamChannelsResearched.setDisable(true);
+        chkCamInsered.setDisable(true);
+
 
 
         ktvQalityOfSignal.setSelected(false);
