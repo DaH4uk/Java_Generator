@@ -1829,14 +1829,14 @@ public class Controller
                         grids.setPadding(new Insets(40, 250, 10, 10));
 
                         TextField dogs = new TextField(dog.getText());
-                        dog.setPromptText("№ договора");
+                        dogs.setPromptText("№ договора");
                         dogs.setPrefWidth(110);
                         TextField kts = new TextField(kt.getText());
-                        kt.setPromptText("№ телефона");
+                        kts.setPromptText("№ телефона");
                         kts.setPrefWidth(110);
                         TextArea komms = new TextArea(komm.getText());
                         komms.setWrapText(true);
-                        komm.setPromptText("Комментарий");
+                        komms.setPromptText("Комментарий");
                         komms.setPrefWidth(150);
                         Label Time = new Label("  Напоминание через: " + hrs + " ч. " + mnts + " мин.");
 
@@ -1893,7 +1893,7 @@ public class Controller
 
 
                                     try {
-                                        Thread.sleep(200);
+                                        Thread.sleep(1000);
                                     } catch (InterruptedException e) {
                                     }
                                     System.out.println(i);
@@ -1914,12 +1914,17 @@ public class Controller
 
                             if (t.isAlive()) {
                                 t.stop();
+                                button.setText("Старт");
+                            } else {
+                                button.setText("Стоп");
+                                dog.setText(dogs.getText());
+                                System.out.println(dogs.getText());
+                                kt.setText(kts.getText());
+                                komm.setText(komms.getText());
+                                CreateRememberClicked();
+
+
                             }
-//                            else
-//                            {
-//                                button.setText("Стоп");
-//                                t.resume();
-//                            }
                             player.stop();
 
                         });
