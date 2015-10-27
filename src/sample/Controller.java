@@ -279,6 +279,7 @@ public class Controller
     public CheckBox chkExternalPing;
     public CheckBox chkDNSPing;
     public CheckBox chkSwitchPing;
+    public CheckBox chkClientPing;
     public CheckBox chkSpeedST;
     public CheckBox chkSpeedIperf;
     public CheckBox chkDiffWifi;
@@ -301,6 +302,9 @@ public class Controller
     public TextField txtfieldSpeedSTUpload;
     public TextField txtfieldSpeedSTMustBe;
     public TextField txtfieldSpeedIperfSpeed;
+    public TextField txtfieldClientSize;
+    public TextField txtfieldClientSend;
+    public TextField txtfieldClientRecived;
 
     public void RouterFaultClicked() {
         if (chkRouterFaultyses.isSelected()) {
@@ -359,6 +363,17 @@ public class Controller
         }
     }
 
+    public void ClientPingClicked() {
+        if (chkClientPing.isSelected()) {
+            txtfieldClientSize.setDisable(false);
+            txtfieldClientSend.setDisable(false);
+            txtfieldClientRecived.setDisable(false);
+        } else {
+            txtfieldClientSize.setDisable(true);
+            txtfieldClientSend.setDisable(true);
+            txtfieldClientRecived.setDisable(true);
+        }
+    }
     public void SpeedSTClicked() {
         if (chkSpeedST.isSelected()) {
             txtfieldSpeedSTDownload.setDisable(false);
@@ -928,7 +943,12 @@ public class Controller
                 if (chkRouterFaultyses.isSelected()) {
                     reqest = reqest + "Подозрение на неисправность роутера. ";
                     if (chkDiffWifi.isSelected()) {
-                        reqest = reqest + "Через роутер по wi-fi: " + comboDiffWifi.getEditor().getText() + ". ";
+                        if (!comboDiffWifi.getEditor().getText().equals("Просто низкая скорость")) {
+                            reqest = reqest + "Через роутер по wi-fi: " + comboDiffWifi.getEditor().getText() + ". ";
+                        } else {
+                            reqest = reqest + "Через роутер по wi-fi: ";
+                        }
+
                     } else {
                         reqest = reqest + "Через роутер по патч-корду: ";
                     }
@@ -983,6 +1003,19 @@ public class Controller
                     alert3.setTitle("Ошибка");
                     alert3.setHeaderText(null);
                     alert3.setContentText("Введите корректное число полученных/отправленных пакетов до коммутатора!");
+                    alert3.showAndWait();
+                }
+
+                try {
+                    if (chkClientPing.isSelected()) {
+                        reqest = reqest + " При пинге до клиента " + txtfieldClientSize.getText() +
+                                " пакетами по " + txtfieldClientSend.getText() + " байт: " + (int) (100 - 100 * (Double.parseDouble(txtfieldClientRecived.getText()) / Double.parseDouble(txtfieldClientSend.getText()))) + "% потерь. ";
+                    }
+                } catch (Exception e) {
+                    Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                    alert3.setTitle("Ошибка");
+                    alert3.setHeaderText(null);
+                    alert3.setContentText("Введите корректное число полученных/отправленных пакетов до клиента!");
                     alert3.showAndWait();
                 }
 
@@ -1101,18 +1134,14 @@ public class Controller
                         alert.setContentText("Обычно логотипом к стене.");
 
                         ButtonType buttonTypeOne = new ButtonType("Логотипом к стене");
-                        ButtonType buttonTypeTwo = new ButtonType("Логотипом к экрану");
                         ButtonType buttonTypeCancel = new ButtonType("Отмена", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-                        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+                        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
                         String ss = "";
                         Optional<ButtonType> result = alert.showAndWait();
                         if (result.get() == buttonTypeOne) {
                             // ... user chose "One"
-                            ss = "логотипом к стене. ";
-                        } else if (result.get() == buttonTypeTwo) {
-                            // ... user chose "Two"
-                            ss = "логотипом к дисплею. ";
+                            ss = "верно. ";
                         } else {
                             // ... user chose CANCEL or closed the dialog
                             ss = "верно. ";
@@ -1250,9 +1279,9 @@ public class Controller
                     if (chkWithSpecificNumber.isSelected()) {
                         reqest = reqest + "Отсутствует входящая связь с номером: " + txtfieldWithSpecificNumber.getText() + ". ";
                         if (radioNumberMatch.isSelected()) {
-                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, совпадают. ";
+                            reqest = reqest + "Номер, закрепленный за приложением и указанный в параметрах адаптера, совпадают. ";
                         } else {
-                            reqest = reqest + "Номер, закрепленный за приложением и установленный в адаптер, не совпадают. ";
+                            reqest = reqest + "Номер, закрепленный за приложением и указанный в параметрах адаптера, не совпадают. ";
                         }
                     } else {
                         reqest = reqest + "Отсутствует входящая связь. ";
@@ -1543,6 +1572,14 @@ public class Controller
         txtfieldSpeedSTUpload.setText("");
         txtfieldSpeedSTMustBe.setDisable(true);
         txtfieldSpeedSTMustBe.setText("");
+
+        chkClientPing.setSelected(false);
+        txtfieldClientSize.setDisable(true);
+        txtfieldClientSize.setText("1400");
+        txtfieldClientSend.setDisable(true);
+        txtfieldClientSend.setText("30");
+        txtfieldClientRecived.setDisable(true);
+        txtfieldClientRecived.setText("");
 
         chkSpeedIperf.setSelected(false);
         txtfieldSpeedIperfSpeed.setText("");
@@ -1911,7 +1948,10 @@ public class Controller
                         });
                         t.start();
 
-                        tab.setOnClosed(e -> t.stop());
+                        tab.setOnClosed(e -> {
+                            t.stop();
+                            player.stop();
+                        });
 
                         Button button = new Button("Стоп");
 
