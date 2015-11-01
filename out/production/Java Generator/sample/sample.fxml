@@ -280,28 +280,35 @@
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
                                                    <children>
                                                        <CheckBox fx:id="chkExternalPing" mnemonicParsing="false"
-                                                                 onAction="#ExternalPingClicked"
-                                                                 text="До внешки:         "/>
-                                                       <TextField fx:id="txtfieldExternalPingSize" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0" text="1400"/>
-                                                      <Label text="     " />
-                                                       <TextField fx:id="txtfieldExternalPingSend" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0" text="30"/>
-                                                      <Label text="      " />
-                                                       <TextField fx:id="txtfieldExternalPingReceived" disable="true"
-                                                                  prefHeight="25.0" prefWidth="44.0"/>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="30.0" prefWidth="270.0">
-                                                   <children>
-                                                      <Label text="Адрес:" />
-                                                      <Label text="     " />
+                                                                 onAction="#ExternalPingClicked" prefHeight="17.0"
+                                                                 prefWidth="44.0" text="До"/>
                                                        <TextField fx:id="txtfieldExternalPingAddr" disable="true"
-                                                                  prefHeight="14.0" prefWidth="87.0" text="ya.ru">
+                                                                  prefHeight="23.0" prefWidth="54.0" text="ya.ru">
                                                          <font>
-                                                            <Font size="10.0" />
+                                                             <Font size="11.0"/>
                                                          </font>
                                                       </TextField>
+                                                       <Label text=":    "/>
+                                                       <TextField fx:id="txtfieldExternalPingSize" disable="true"
+                                                                  prefHeight="25.0" prefWidth="44.0" text="1400">
+                                                           <font>
+                                                               <Font size="11.0"/>
+                                                           </font>
+                                                       </TextField>
+                                                       <Label text="     "/>
+                                                       <TextField fx:id="txtfieldExternalPingSend" disable="true"
+                                                                  prefHeight="25.0" prefWidth="44.0" text="30">
+                                                           <font>
+                                                               <Font size="11.0"/>
+                                                           </font>
+                                                       </TextField>
+                                                       <Label text="      "/>
+                                                       <TextField fx:id="txtfieldExternalPingReceived" disable="true"
+                                                                  prefHeight="25.0" prefWidth="44.0">
+                                                           <font>
+                                                               <Font size="11.0"/>
+                                                           </font>
+                                                       </TextField>
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="30.0" prefWidth="270.0">
@@ -338,11 +345,26 @@
                                                       <Label text="IP:   " />
                                                        <TextField fx:id="txtfieldSwitchIP" disable="true"
                                                                   prefHeight="25.0" prefWidth="105.0" text="0.0.0.0"/>
-                                                      <Label text="     Порт:" />
+                                                       <Label prefWidth="48.0" text="   Порт:"/>
                                                        <TextField fx:id="txtfieldSwitchPort" disable="true"
                                                                   prefHeight="25.0" prefWidth="44.0"/>
                                                    </children>
                                                 </HBox>
+                                                 <HBox prefHeight="29.0" prefWidth="303.0">
+                                                     <children>
+                                                         <CheckBox fx:id="chkClientPing" mnemonicParsing="false"
+                                                                   onAction="#ClientPingClicked" prefWidth="115.0"
+                                                                   text="До клиента:"/>
+                                                         <TextField fx:id="txtfieldClientSize" disable="true"
+                                                                    prefHeight="25.0" prefWidth="44.0" text="1400"/>
+                                                         <Label prefWidth="17.0"/>
+                                                         <TextField fx:id="txtfieldClientSend" disable="true"
+                                                                    prefHeight="25.0" prefWidth="44.0" text="30"/>
+                                                         <Label layoutX="169.0" layoutY="10.0" text="      "/>
+                                                         <TextField fx:id="txtfieldClientRecived" disable="true"
+                                                                    prefHeight="25.0" prefWidth="44.0"/>
+                                                     </children>
+                                                 </HBox>
                                              </children>
                                           </VBox>
                                           <Label layoutX="129.0" layoutY="24.0" text="Размер:">

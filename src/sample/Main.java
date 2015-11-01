@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 
@@ -19,6 +19,8 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 500, 600));
         Controller.STAGE = primaryStage;
         primaryStage.show();
+        VersionChecker checker = new VersionChecker();
+        checker.start();
     }
 
 

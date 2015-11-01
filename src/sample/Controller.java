@@ -1584,6 +1584,8 @@ public class Controller
         chkSpeedIperf.setSelected(false);
         txtfieldSpeedIperfSpeed.setText("");
         comboSpeedIperfCity.setValue("");
+        txtfieldSpeedIperfSpeed.setDisable(true);
+        comboSpeedIperfCity.setDisable(true);
 
         chkDiffWifi.setSelected(false);
         chkDiffWifi.setDisable(true);
