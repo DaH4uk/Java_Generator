@@ -859,7 +859,7 @@ public class Controller
                         reqest = reqest + "1 пары на " + txtfieldBreaks1Pair.getText() + " метре. ";
                     }
                     if (chkBreaks2Pair.isSelected()) {
-                        reqest = reqest + "2 пары на " + txtfieldBreaks1Pair.getText() + " метре. ";
+                        reqest = reqest + "2 пары на " + txtfieldBreaks2Pair.getText() + " метре. ";
                     }
                 }
                 if (chkPortNoReaction.isSelected()) {
@@ -869,7 +869,7 @@ public class Controller
                     reqest = reqest + "Порт перезапускали. ";
                 }
                 if (chkPortMode.isSelected()) {
-                    reqest = reqest + "Порт работает в режиме " + comboPortMode.getEditor().getText() +
+                    reqest = reqest + "Порт работает в режиме " + comboPortMode.getEditor().getText() + "." +
                             " В параметрах драйвера Lan указывали 100 Mb/Full-Duplex, ситуация не изменилась. ";
                 }
                 if (chkRouterFaulty.isSelected() && chkRouterReplacement.isSelected()) {
@@ -1057,13 +1057,13 @@ public class Controller
 
                 if (chkSpillageImage.isSelected()) {
                     if (chkSpillageImage.isSelected() && chkFadingImage.isSelected()) {
-                        reqest = reqest + "Наблюдается рассыпание, замирание изображения. ";
+                        reqest = reqest + "Происходит рассыпание, замирание изображения. ";
                     } else {
-                        reqest = reqest + "Наблюдается рассыпание изображения. ";
+                        reqest = reqest + "Происходит рассыпание изображения. ";
                     }
                 }
                 if (chkFadingImage.isSelected() && !(chkSpillageImage.isSelected() && chkFadingImage.isSelected())) {
-                    reqest = reqest + "Наблюдается замирание изображения. ";
+                    reqest = reqest + "Происходит замирание изображения. ";
                 }
                 if (chkBroadcastingInterruption.isSelected()) {
                     reqest = reqest + "Прерывается вещание на нескольких каналах. ";

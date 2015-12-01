@@ -15,12 +15,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Generator");
+        primaryStage.setTitle("jGenerator 0.1b");
         primaryStage.setScene(new Scene(root, 500, 600));
         Controller.STAGE = primaryStage;
         primaryStage.show();
-        VersionChecker checker = new VersionChecker();
-        checker.start();
+//        VersionChecker checker = new VersionChecker();
+//        checker.start();
     }
 
 

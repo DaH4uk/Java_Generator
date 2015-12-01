@@ -38,6 +38,7 @@ public class VersionChecker extends Thread {
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             System.out.println("Connected");
 
+
             InputStream in = con.getInputStream();
             InputStreamReader isr = new InputStreamReader(in);
             BufferedReader inb = new BufferedReader(new InputStreamReader(in));

@@ -1168,79 +1168,79 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab onSelectionChanged="#initializeTestexe" text="Test.exe">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="86.0" prefWidth="275.0">
-                           <children>
-                              <HBox prefHeight="22.0" prefWidth="162.0">
-                                 <children>
-                                    <Label prefHeight="30.0" prefWidth="120.0" text="1. Выберите город:" />
-                                    <ComboBox prefWidth="150.0" promptText="Выберите город">
-                                       <items>
-                                          <FXCollections fx:factory="observableArrayList">
-                                             <String fx:value="Барнаул" />
-                                             <String fx:value="Брянск" />
-                                             <String fx:value="Волгоград" />
-                                             <String fx:value="Воронеж" />
-                                             <String fx:value="Екатеринбург" />
-                                             <String fx:value="Ижевск" />
-                                             <String fx:value="Иркутск" />
-                                             <String fx:value="Йошкар-Ола" />
-                                             <String fx:value="Казань" />
-                                             <String fx:value="Киров" />
-                                             <String fx:value="Красноярск" />
-                                             <String fx:value="Курган" />
-                                             <String fx:value="Курск" />
-                                             <String fx:value="Липецк" />
-                                             <String fx:value="Магнитогорск" />
-                                             <String fx:value="Набережные Челны" />
-                                             <String fx:value="Нижний Новгород" />
-                                             <String fx:value="Новосибирск" />
-                                             <String fx:value="Омск" />
-                                             <String fx:value="Оренбург" />
-                                             <String fx:value="Пенза" />
-                                             <String fx:value="Пермь" />
-                                             <String fx:value="Ростов-на-Дону" />
-                                             <String fx:value="Рязань" />
-                                             <String fx:value="Самара" />
-                                             <String fx:value="Санкт-Петербург" />
-                                             <String fx:value="Саратов" />
-                                             <String fx:value="Тверь" />
-                                             <String fx:value="Томск" />
-                                             <String fx:value="Тула" />
-                                             <String fx:value="Тюмень" />
-                                             <String fx:value="Ульяновск" />
-                                             <String fx:value="Уфа" />
-                                             <String fx:value="Чебоксары" />
-                                             <String fx:value="Челябинск" />
-                                             <String fx:value="Ярославль" />
-                                          </FXCollections>
-                                       </items>
-                                    </ComboBox>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="22.0" prefWidth="162.0">
-                                 <children>
-                                    <Label prefHeight="30.0" prefWidth="120.0" text="2. Номер договора:" />
-                                    <TextField prefHeight="25.0" prefWidth="150.0" promptText="Номер договора" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="22.0" prefWidth="162.0">
-                                 <children>
-                                    <Label prefHeight="35.0" prefWidth="120.0" text="3. Начало поиска:" />
-                                    <DatePicker fx:id="testDatePicker" editable="false" prefHeight="25.0" prefWidth="150.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <Button layoutX="296.0" layoutY="30.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="95.0" text="Поиск" />
-                         <Hyperlink layoutX="363.0" layoutY="3.0" onAction="#TextexeClicked"
-                                    text="Test.exe: 212.33.255.58" visited="true"/>
-                     </children></AnchorPane>
-              </content>
-            </Tab>
+            <!--<Tab onSelectionChanged="#initializeTestexe" text="Test.exe">-->
+            <!--<content>-->
+            <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">-->
+            <!--<children>-->
+            <!--<VBox layoutX="14.0" layoutY="14.0" prefHeight="86.0" prefWidth="275.0">-->
+            <!--<children>-->
+            <!--<HBox prefHeight="22.0" prefWidth="162.0">-->
+            <!--<children>-->
+            <!--<Label prefHeight="30.0" prefWidth="120.0" text="1. Выберите город:" />-->
+            <!--<ComboBox prefWidth="150.0" promptText="Выберите город">-->
+            <!--<items>-->
+            <!--<FXCollections fx:factory="observableArrayList">-->
+            <!--<String fx:value="Барнаул" />-->
+            <!--<String fx:value="Брянск" />-->
+            <!--<String fx:value="Волгоград" />-->
+            <!--<String fx:value="Воронеж" />-->
+            <!--<String fx:value="Екатеринбург" />-->
+            <!--<String fx:value="Ижевск" />-->
+            <!--<String fx:value="Иркутск" />-->
+            <!--<String fx:value="Йошкар-Ола" />-->
+            <!--<String fx:value="Казань" />-->
+            <!--<String fx:value="Киров" />-->
+            <!--<String fx:value="Красноярск" />-->
+            <!--<String fx:value="Курган" />-->
+            <!--<String fx:value="Курск" />-->
+            <!--<String fx:value="Липецк" />-->
+            <!--<String fx:value="Магнитогорск" />-->
+            <!--<String fx:value="Набережные Челны" />-->
+            <!--<String fx:value="Нижний Новгород" />-->
+            <!--<String fx:value="Новосибирск" />-->
+            <!--<String fx:value="Омск" />-->
+            <!--<String fx:value="Оренбург" />-->
+            <!--<String fx:value="Пенза" />-->
+            <!--<String fx:value="Пермь" />-->
+            <!--<String fx:value="Ростов-на-Дону" />-->
+            <!--<String fx:value="Рязань" />-->
+            <!--<String fx:value="Самара" />-->
+            <!--<String fx:value="Санкт-Петербург" />-->
+            <!--<String fx:value="Саратов" />-->
+            <!--<String fx:value="Тверь" />-->
+            <!--<String fx:value="Томск" />-->
+            <!--<String fx:value="Тула" />-->
+            <!--<String fx:value="Тюмень" />-->
+            <!--<String fx:value="Ульяновск" />-->
+            <!--<String fx:value="Уфа" />-->
+            <!--<String fx:value="Чебоксары" />-->
+            <!--<String fx:value="Челябинск" />-->
+            <!--<String fx:value="Ярославль" />-->
+            <!--</FXCollections>-->
+            <!--</items>-->
+            <!--</ComboBox>-->
+            <!--</children>-->
+            <!--</HBox>-->
+            <!--<HBox prefHeight="22.0" prefWidth="162.0">-->
+            <!--<children>-->
+            <!--<Label prefHeight="30.0" prefWidth="120.0" text="2. Номер договора:" />-->
+            <!--<TextField prefHeight="25.0" prefWidth="150.0" promptText="Номер договора" />-->
+            <!--</children>-->
+            <!--</HBox>-->
+            <!--<HBox prefHeight="22.0" prefWidth="162.0">-->
+            <!--<children>-->
+            <!--<Label prefHeight="35.0" prefWidth="120.0" text="3. Начало поиска:" />-->
+            <!--<DatePicker fx:id="testDatePicker" editable="false" prefHeight="25.0" prefWidth="150.0" />-->
+            <!--</children>-->
+            <!--</HBox>-->
+            <!--</children>-->
+            <!--</VBox>-->
+            <!--<Button layoutX="296.0" layoutY="30.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="95.0" text="Поиск" />-->
+            <!--<Hyperlink layoutX="363.0" layoutY="3.0" onAction="#TextexeClicked"-->
+            <!--text="Test.exe: 212.33.255.58" visited="true"/>-->
+            <!--</children></AnchorPane>-->
+            <!--</content>-->
+            <!--</Tab>-->
             <Tab onSelectionChanged="#initializeTestexe" text="Напоминание">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
